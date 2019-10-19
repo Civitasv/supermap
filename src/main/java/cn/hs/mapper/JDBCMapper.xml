@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.hs.mapper.JDBCMapper">
+    <resultMap id="ChartResultMap" type="Chart">
+        <result property="province" column="province"/>
+        <result property="superNum" column="super"/>
+        <result property="destinationNum" column="destination"/>
+        <result property="summary" column="summary"/>
+    </resultMap>
+    <select id="getSuperStation" resultType="String">
+        SELECT row_to_json(fc) FROM ( SELECT 'FeatureCollection' As type,array_to_json(array_agg(f)) As features FROM
+        (SELECT 'Feature' As type, ST_AsGeoJSON(lg.geom)::json As geometry ,row_to_json((gid,name,
+        address,class,telephone,time,price,port,image)) As properties FROM stationinfo As lg WHERE class=2) As f ) As fc
+    </select>
+    <select id="getDestiStation" resultType="String">
+        SELECT row_to_json(fc) FROM ( SELECT 'FeatureCollection' As type,array_to_json(array_agg(f)) As features FROM
+        (SELECT 'Feature' As type, ST_AsGeoJSON(lg.geom)::json As geometry ,row_to_json((gid,name,
+        address,class,telephone,time,price,port,image)) As properties FROM stationinfo As lg WHERE class=1) As f ) As fc
+    </select>
+    <update id="updateData" parameterType="map">
+        UPDATE stationinfo SET
+        name=#{name},address=#{address},telephone=#{telephone},time=#{time},price=#{price},port=#{port} WHERE gid=#{gid}
+    </update>
+    <insert id="addData" parameterType="map">
+        INSERT INTO stationinfo (name, address,telephone,time,price,port,class,lng,lat,geom) VALUES
+        (#{name},#{address},#{telephone},#{time},#{price},#{port},#{CLASS},#{lng},#{lat},'POINT(${lng} ${lat})')
+    </insert>
+    <delete id="deleteData" parameterType="int">
+        DELETE FROM stationinfo WHERE gid=#{gid}
+    </delete>
+    <select id="queryChartData" resultMap="ChartResultMap">
+        select province,count(province) as summary, sum(case when class = 1 then 1 else '0' end) as destination,
+        sum(case when class = 2 then 1 else '0' end) as super from stationinfo group by province
+    </select>
+    <update id="uploadImage" parameterType="map">
+        UPDATE stationinfo SET image = #{image} WHERE gid = #{gid}
+    </update>
+</mapper>
+
