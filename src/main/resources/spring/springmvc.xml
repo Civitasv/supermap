@@ -22,6 +22,9 @@
 
     <!--配置静态资源-->
     <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/assets/" mapping="/assets/**"/>
+    <mvc:resources location="/data/" mapping="/data/**"/>
+    <mvc:resources location="/supermap/" mapping="/supermap/**"/>
     <mvc:resources location="/js/" mapping="/js/**"/>
     <mvc:resources location="/images/" mapping="/images/**"/>
     <mvc:resources location="/fonts/" mapping="/fonts/**"/>
@@ -36,7 +39,7 @@
 
     <!--使用注解驱动来使用新的映射器和处理器-->
     <mvc:annotation-driven/>
-    <mvc:view-controller path="/" view-name="pages/login.action"/>
+    <mvc:view-controller path="/" view-name="pages/home.action"/>
     <!--自定义视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 

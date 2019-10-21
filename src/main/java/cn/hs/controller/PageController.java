@@ -12,6 +12,17 @@ public class PageController {
         return new ModelAndView("index");
     }
 
+    @RequestMapping("view")
+    public ModelAndView view(){
+        return new ModelAndView("view");
+    }
+
+    @RequestMapping("home")
+    public ModelAndView home(){
+        return new ModelAndView("home");
+    }
+
+
     @RequestMapping("login")
     public ModelAndView login(){
         return new ModelAndView("login");
