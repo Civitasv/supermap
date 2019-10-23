@@ -1,6 +1,8 @@
 package cn.hs.controller;
 
+import cn.hs.pojo.News;
 import cn.hs.service.JDBCService;
+import cn.hs.service.NewsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +19,7 @@ import java.io.PrintWriter;
 public class DataController {
 
     @Resource
-    private JDBCService jdbcService;
+    private NewsService newsService;
 
     @RequestMapping("loadData")
     public ModelAndView loadData(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -26,7 +28,7 @@ public class DataController {
         String CLASS = request.getParameter("class");
         System.out.println(CLASS);
         if (CLASS.equals("super")) {
-            String geojson = jdbcService.getSuperStation();
+            String geojson = newsService.getColdNews();
             PrintWriter out = response.getWriter();
             System.out.println("123");
             System.out.println("super");
@@ -35,7 +37,7 @@ public class DataController {
             out.println(geojson);
             out.close();
         } else if (CLASS.equals("destination")) {
-            String geojson = jdbcService.getDestiStation();
+            String geojson = newsService.getWarmNews();
             PrintWriter out = response.getWriter();
             System.out.println("123");
             System.out.println("destination");
@@ -50,42 +52,22 @@ public class DataController {
         return null;
     }
 
-    @RequestMapping(value = "editData")
-    public ModelAndView editData(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        String std_id = request.getParameter("ID");
-        String name = request.getParameter("NAME");
-        String address = request.getParameter("ADDRESS");
-        String phone = request.getParameter("PHONE");
-        String time = request.getParameter("TIME");
-        String price = request.getParameter("PRICE");
-        String port = request.getParameter("PORT");
-        System.out.println(name);
-        jdbcService.updateData(std_id, name, address, phone, time, price, port);
-        PrintWriter out = response.getWriter();
-        out.println(name);
-        out.close();
-        return null;
-    }
-
     @RequestMapping("addData")
     public ModelAndView addData(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String name = request.getParameter("NAME");
-        String address = request.getParameter("ADDRESS");
-        String phone = request.getParameter("PHONE");
+        String id = request.getParameter("NAME");
+        String location = request.getParameter("ADDRESS");
+        String comment = request.getParameter("PHONE");
         String time = request.getParameter("TIME");
-        String price = request.getParameter("PRICE");
-        String port = request.getParameter("PORT");
+        String negative = request.getParameter("PRICE");
         Double lng = Double.parseDouble(request.getParameter("LONGITUDE"));
         Double lat = Double.parseDouble(request.getParameter("LATITUDE"));
-        int sta_class = Integer.parseInt(request.getParameter("CLASS"));
-        System.out.println(name);
-        jdbcService.addData(name, address, phone, time, price, port, sta_class, lng, lat);
+        int type = Integer.parseInt(request.getParameter("CLASS"));
+        News news = new News(id,comment,location,Integer.parseInt(time),0,0,Double.parseDouble(negative),type,lat,lng);
+        newsService.addData(news);
         PrintWriter out = response.getWriter();
-        out.println(name);
+        out.println(id);
         out.close();
         return null;
     }
@@ -98,7 +80,7 @@ public class DataController {
 
         System.out.println(std_id);
 
-        jdbcService.deleteData(std_id);
+        newsService.deleteData(std_id);
         PrintWriter out = response.getWriter();
         out.println(std_id);
         out.close();

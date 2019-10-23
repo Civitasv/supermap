@@ -1,7 +1,7 @@
 package cn.hs.controller;
 
 import cn.hs.service.JDBCService;
-import net.sf.json.JSONArray;
+import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,7 +27,7 @@ public class ChartController {
         String chartArr = jdbcService.queryChartData();
 
         //ArrayList对象转化为JSON对象
-        JSONArray json = JSONArray.fromObject(chartArr);
+        JSONArray json = new JSONArray(chartArr);
         //控制台显示JSON
         System.out.println(json.toString());
         //返回到JSP

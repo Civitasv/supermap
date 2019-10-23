@@ -382,16 +382,17 @@
             style="position:absolute;top:70px;right:200px;
   line-height: 30px;">
         <input id="item1" type="radio" name="item" value="暖调新闻" checked>
-        <label for="item1"></label> <span
-            style="margin-left: 10px;font-weight:bold">暖调新闻</span>
-    </div>
-    <div
-            style="position:absolute;top:70px;right:50px;
+<div id="info"></div>
+<label for="item1"></label> <span
+        style="margin-left: 10px;font-weight:bold">暖调新闻</span>
+</div>
+<div
+        style="position:absolute;top:70px;right:50px;
   line-height: 30px;">
-        <input id="item2" type="radio" name="item" value="冷调新闻"> <label
-            for="item2"></label> <span
-            style="margin-left: 10px;font-weight:bold">冷调新闻</span>
-    </div>
+    <input id="item2" type="radio" name="item" value="冷调新闻"> <label
+        for="item2"></label> <span
+        style="margin-left: 10px;font-weight:bold">冷调新闻</span>
+</div>
 
 </form>
 
@@ -415,7 +416,6 @@
 </div>
 
 
-<div id="info"></div>
 <div id="popup" class="ol-popup">
     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
     <div id="popup-content">
@@ -453,7 +453,7 @@
             </tr>
         </table>
         <hr noshade=true/>
-        <table>
+        <%--<table>
             <tr>
                 <th>街景</th>
             </tr>
@@ -479,14 +479,14 @@
                 </div>
             </tr>
 
-        </table>
+        </table>--%>
 
 
         <hr noshade=true/>
 
         <table>
             <tr>
-                <td><a id="edit" href="#">编辑</a></td>
+                <%--<td><a id="edit" href="#">编辑</a></td>--%>
                 <td><a id="delete" href="#">删除该点</a></td>
             </tr>
 
@@ -500,7 +500,7 @@
     if (email == "null") {
         //非登录人员无法修改
         $("#addStationBt").hide();
-        $("#edit").hide();
+        /*$("#edit").hide();*/
         $("#delete").hide();
         $("#submitImage").hide();
     }
@@ -641,18 +641,17 @@
                     if (email != "null") {
                         $("#delete").show();
                     }
-                    std_id = feature.get("f1");
-                    console.log(feature.get("f1"));
+                    std_id = feature.get("std_id");
                     console.log(std_id);
                     std_Im.src = '${path}/pages/loadImage.action?STD_ID=' + std_id;
 
                     document.getElementById("std_id").value = std_id;
-                    document.getElementById("name").innerHTML = feature.get("f2");
-                    document.getElementById("address").innerHTML = feature.get("f3");
-                    document.getElementById("phone").innerHTML = feature.get("f5");
-                    document.getElementById("time").innerHTML = feature.get("f6");
-                    document.getElementById("price").innerHTML = feature.get("f7");
-                    document.getElementById("port").innerHTML = feature.get("f8");
+                    document.getElementById("name").innerHTML = feature.get("id");
+                    document.getElementById("address").innerHTML = feature.get("location");
+                    document.getElementById("phone").innerHTML = feature.get("comment");
+                    document.getElementById("time").innerHTML = feature.get("time");
+                    document.getElementById("price").innerHTML = feature.get("negative");
+                    document.getElementById("port").innerHTML = "";
                     container.style.display = 'block';
                 }
                 popupCloser.onclick = function () {
@@ -682,6 +681,7 @@
             },
             success: function $(data) {
                 geojsonObject = data;
+                console.log(geojsonObject)
                 if (typeof geojsonObject != "undefined") {
                     vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
@@ -723,20 +723,20 @@
 
     function popupClose() {
 
-        if (feature.get("f4") == 2) {
+        if (feature.get("class") == 2) {
             feature.setStyle(superStyle);
         } else {
             feature.setStyle(destinationStyle);
         }
         container.style.display = 'none';
         popupCloser.blur();
-        var edit = document.getElementById('edit');
-        edit.innerHTML = '编辑';
+       /* var edit = document.getElementById('edit');
+        edit.innerHTML = '编辑';*/
         statu = 0;
         return false;
     }
 
-    function update() {
+    /*function update() {
         var NAME = document.getElementById("name").innerHTML;
         var ADDRESS = document.getElementById("address").innerHTML;
         var PHONE = document.getElementById("phone").innerHTML;
@@ -765,14 +765,14 @@
         vectorLayer.getSource().clear();
         map.removeLayer(vectorLayer);
         vectorLayer = null;
-        if (feature.get("f4") == 1) {
+        if (feature.get("class") == 1) {
             loadData('destination');
         } else {
             loadData('super');
         }
 
 
-    }
+    }*/
 
     function addData() {
         var NAME = document.getElementById("name").innerHTML;
@@ -822,7 +822,7 @@
         }
 
 
-        var property = 'f2';
+        var property = 'f1';
         for (var i = 0, ii = features.length; i < ii; i++) {
 
             if (features[i].get(property).indexOf(value) >= 0) {
@@ -841,15 +841,15 @@
         console.log(ol.extent.getCenter(feature.getGeometry().getExtent()));
         overlay.setPosition(coordinate);
         var std_Im = document.getElementById('stationImg');
-        std_id = feature.get("f1");
+        std_id = feature.get("std_id");
         std_Im.src = 'loadImage.jsp?STD_ID=' + std_id;
         document.getElementById("std_id").value = std_id;
-        document.getElementById("name").innerHTML = feature.get("f2");
-        document.getElementById("address").innerHTML = feature.get("f3");
-        document.getElementById("phone").innerHTML = feature.get("f5");
-        document.getElementById("time").innerHTML = feature.get("f6");
-        document.getElementById("price").innerHTML = feature.get("f7");
-        document.getElementById("port").innerHTML = feature.get("f8");
+        document.getElementById("name").innerHTML = feature.get("id");
+        document.getElementById("address").innerHTML = feature.get("location");
+        document.getElementById("phone").innerHTML = feature.get("comment");
+        document.getElementById("time").innerHTML = feature.get("time");
+        document.getElementById("price").innerHTML = feature.get("negative");
+        document.getElementById("port").innerHTML = "";
 
         container.style.display = 'block';
         console.log("lal");
@@ -859,7 +859,7 @@
 
     }
 
-    var edit = document.getElementById('edit');
+    /*var edit = document.getElementById('edit');*/
     var item = document.getElementsByName('editInfo');
     var item_length = item.length
     var item_value = new Array(item_length);
@@ -894,7 +894,7 @@
 
     }
 
-    edit.onclick = function () {
+    /*edit.onclick = function () {
 
 
         for (var i = 0; i < item_length; i++) {
@@ -937,7 +937,7 @@
         }
         return false;
 
-    }
+    }*/
 
 
     $(document).ready(function (e) {
@@ -1029,7 +1029,7 @@
         document.getElementById("port").innerHTML = '--';
         document.getElementById('stationImg').src = '';
         std_id = '';
-        edit.onclick();
+        /*edit.onclick();*/
         popupCloser.onclick = function () {
             addSta = 0;
             layer.getSource().clear();
@@ -1241,7 +1241,7 @@
     function removeRoute() {
         sourceVector.clear();
         for (var i = 0; i < closeFeatures.length; i++) {
-            if (closeFeatures[i].get("f4") == 2) {
+            if (closeFeatures[i].get("class") == 2) {
                 closeFeatures[i].setStyle(superStyle);
             } else {
                 closeFeatures[i].setStyle(destinationStyle);
