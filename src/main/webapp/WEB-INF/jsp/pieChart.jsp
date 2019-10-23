@@ -93,13 +93,13 @@
 						if (sta_class == 'superNum') {
 							sInfo = {
 								"name" : result[i].province,
-								"value" : result[i].superNum,
+								"value" : result[i].coldNum,
 							};
 						}
 						if (sta_class == 'destinationNum') {
 							sInfo = {
 								"name" : result[i].province,
-								"value" : result[i].destinationNum,
+								"value" : result[i].warmNum,
 							};
 						}
 
@@ -123,7 +123,7 @@
 	var myChart3 = echarts.init(document.getElementById('main3'));
 	var option1 = {
 		title : {
-			text : '新闻信息',
+			text : '暖',
 
 			left : 'center',
 			padding : 30
@@ -197,8 +197,8 @@
 			}
 		]
 	};
-	loadData(option1, 'superNum');
-	loadData(option2, 'destinationNum');
+	loadData(option1, 'destinationNum');
+	loadData(option2, 'superNum');
 	loadData(option3, 'summary');
 	myChart1.setOption(option1);
 	myChart2.setOption(option3);

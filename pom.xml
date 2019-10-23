@@ -84,7 +84,11 @@
         </dependency>
 
         <!--日志-->
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.21</version>
+        </dependency>
 
         <!--jsp标签-->
         <dependency>
@@ -130,15 +134,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
-       
-        <!--arima模型需要的矩阵库-->
-        <!-- https://mvnrepository.com/artifact/gov.nist.math/jama -->
-        <dependency>
-            <groupId>gov.nist.math</groupId>
-            <artifactId>jama</artifactId>
-            <version>1.0.2</version>
-        </dependency>
         <!--postgresql-->
         <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
         <dependency>
@@ -220,7 +215,6 @@
             </plugins>
         </pluginManagement>
         <resources>
-
             <resource>
                 <directory>src/main/java</directory>
                 <includes>

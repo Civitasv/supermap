@@ -15,6 +15,7 @@
 <link href="${path}/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="${path}/css/buttons.css" rel="stylesheet" type="text/css">
 <link href="${path}/css/checkboxes.min.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="${path}/images/favicon.ico" type="image/x-icon"/>
 <link href="${path}/font-awesome/css/font-awesome.min.css"
       rel="stylesheet" type="text/css">
 <body>

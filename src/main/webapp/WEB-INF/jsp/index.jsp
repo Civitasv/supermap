@@ -21,13 +21,14 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="${path}/js/ol.js" type="text/javascript"></script>
-
+    <link href="${path}/css/awesome-bootstrap-checkbox.css">
     <link href="${path}/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="${path}/css/measuretool.css">
     <link rel="shortcut icon" type="image/x-icon" href="${path}/images/tesla.png"/>
     <script src="${path}/js/measuretool.js" type="text/javascript"></script>
     <script type="text/javascript" src="${path}/supermap/include-web.js"></script>
     <script type="text/javascript" src="${path}/supermap/include-openlayers.js"></script>
+    <link rel="shortcut icon" href="${path}/images/favicon.ico" type="image/x-icon"/>
     <script>
         var startPath = path + "/images/start.png";
         var endPath = path + "/images/closeStation.png";
@@ -160,11 +161,11 @@
             border: 1px solid #999;
         }
 
-        .hs{
-          margin-left: 20%;
+        .hs {
+            margin-left: 20%;
         }
 
-        .hs span{
+        .hs span {
             margin-left: 20%;
         }
 
@@ -172,7 +173,7 @@
         #searchkey {
             background-color: transparent;
             border-radius: 0;
-            color:whitesmoke;
+            color: whitesmoke;
             border: 1px solid;
             border-color: whitesmoke;
             font-family: navFont;
@@ -270,7 +271,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="logo" style="text-align: center;margin-bottom: 20px;margin-top: 50px;">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="logo"
+                style="text-align: center;margin-bottom: 20px;margin-top: 50px;">
                 <img src="${path}/images/tesla.png" width="100" height="auto" alt="" class="img-responsive"/>
             </li>
             <li class="nav-item hs" data-toggle="tooltip" data-placement="right"
@@ -376,24 +378,41 @@
             scrolling="no" frameborder="0"></iframe>
 </div>
 
-
-<form>
-    <div
-            style="position:absolute;top:70px;right:200px;
+<form role="form">
+    <div class="radio radio-primary" style="position:absolute;top:70px;right:180px;
   line-height: 30px;">
-        <input id="item1" type="radio" name="item" value="暖调新闻" checked>
+        <input type="radio" name="item" id="item1" value="暖调新闻" checked>
+        <label for="item1">
+        </label>
+        <span style="font-weight: bold;">&nbsp;&nbsp;暖调新闻</span>
+    </div>
+    <div class="radio" style="position:absolute;top:70px;right:50px;
+  line-height: 30px;">
+        <input type="radio" name="item" id="item2" value="冷调新闻">
+        <label for="item2">
+        </label>
+        <span style="font-weight: bold;">&nbsp;&nbsp;冷调新闻</span>
+
+    </div>
+</form>
+<%--<form>
+    <div
+            style="position:absolute;top:70px;right:180px;
+  line-height: 30px;">
+        <input id="item1" type="radio" name="item" value="暖调新闻" >
+        <div id="info"></div>
         <label for="item1"></label> <span
             style="margin-left: 10px;font-weight:bold">暖调新闻</span>
     </div>
     <div
             style="position:absolute;top:70px;right:50px;
   line-height: 30px;">
-        <input id="item2" type="radio" name="item" value="冷调新闻"> <label
+        <input id="item2" type="radio" name="item" value="冷调新闻" checked> <label
             for="item2"></label> <span
             style="margin-left: 10px;font-weight:bold">冷调新闻</span>
     </div>
 
-</form>
+</form>--%>
 
 <div class="dropdown" id="addStationBt" style="position:absolute;top:54px;right:530px;
   line-height: 30px;">
@@ -415,68 +434,51 @@
 </div>
 
 
-<div id="info"></div>
 <div id="popup" class="ol-popup">
     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
     <div id="popup-content">
         <table>
             <tr>
-                <th id="name" name="editInfo" align="left">主题名</th>
+                <th id="news_id" name="editInfo" align="left">主题名</th>
             </tr>
         </table>
         <hr noshade=true/>
         <table rules="rows">
             <tr>
                 <td><i class="fa fa-fw fa-map-marker"></i></td>
-                <td><label id="address" name="editInfo">地址</label></td>
+                <td><label id="location" name="editInfo">地址</label></td>
             </tr>
             <tr>
-                <td><i class="fa fa-fw fa-phone"></i></td>
-                <td><label id="phone" name="editInfo">电话</label></td>
+                <td><i class="fa fa-adjust"></i></td>
+                <td><label id="type" name="editInfo">类型</label></td>
             </tr>
         </table>
         <hr noshade=true/>
         <table rules="rows">
             <tr>
-                <th style="text-align:left">新闻信息</th>
+                <th style="text-align:left">其他信息</th>
             </tr>
 
             <tr align="center">
                 <td width=150>时间</td>
-                <td width=150>地点</td>
-                <td width=150>介绍</td>
+                <td width=150>积极性</td>
+                <td width=150>消极性</td>
             </tr>
             <tr align="center">
-                <td name="editInfo" id="time">--</td>
-                <td name="editInfo" id="price">--</td>
-                <td name="editInfo" id="port">--</td>
+                <td name="editInfo" id="time">20191023</td>
+                <td name="editInfo" id="positive">--</td>
+                <td name="editInfo" id="negative">--</td>
             </tr>
         </table>
         <hr noshade=true/>
         <table>
             <tr>
-                <th>街景</th>
+                <th>评论详情</th>
             </tr>
         </table>
         <table>
             <tr>
-                <div id="hover" align="center">
-                    <a href="javascript:fileSelect();"><img id="stationImg"
-                                                            src="${path}/images/addImage.png"
-                                                            onerror="this.src='${path}/images/addImage.png'" width=100px
-                                                            height=100px
-                                                            title="<h5>上传图片</h5>"/> </a>
-                    <form id="updateImage" action="${path}/image/updateImage.action" method="post"
-                          enctype="multipart/form-data">
-                        <input type="file" name="image" id="image"
-                               onchange="fileSelected(this);" style="display:none;"/><br/>
-                        <input type="text" name="std_id" id="std_id"
-                               style="display:none;"/>
-                        <button type="submit" id="submitImage">上传</button>
-                    </form>
-
-
-                </div>
+                <p id="comment" name="" editInfo>...</p>
             </tr>
 
         </table>
@@ -624,9 +626,11 @@
             if (findClosestSta == 1) {
                 showRoute(coordinate);
                 document.getElementById("map").style.cursor = "default";
+                $("#edit").show();
             } else if (addSta == 1) {
                 addStation(coordinate);
                 document.getElementById("map").style.cursor = "default";
+                $("#edit").show();
             }
             // addStation(coordinate);
             else {
@@ -634,25 +638,26 @@
                 feature = map.forEachFeatureAtPixel(pixel, function (feature, vectorLayer) {
                     return feature;
                 });
-                var std_Im = document.getElementById('stationImg');
+                $("#edit").hide();
                 if (feature != undefined) {
                     feature.setStyle(Iconstyle);
                     overlay.setPosition(coordinate);
                     if (email != "null") {
                         $("#delete").show();
                     }
-                    std_id = feature.get("f1");
-                    console.log(feature.get("f1"));
+                    std_id = feature.get("comment_id");
                     console.log(std_id);
-                    std_Im.src = '${path}/pages/loadImage.action?STD_ID=' + std_id;
 
-                    document.getElementById("std_id").value = std_id;
-                    document.getElementById("name").innerHTML = feature.get("f2");
-                    document.getElementById("address").innerHTML = feature.get("f3");
-                    document.getElementById("phone").innerHTML = feature.get("f5");
-                    document.getElementById("time").innerHTML = feature.get("f6");
-                    document.getElementById("price").innerHTML = feature.get("f7");
-                    document.getElementById("port").innerHTML = feature.get("f8");
+                    document.getElementById("news_id").innerHTML = feature.get("news_id");
+                    document.getElementById("location").innerHTML = feature.get("location");
+                    if(feature.get("type")==1)
+                        document.getElementById("type").innerHTML = "积极性新闻";
+                    else if(feature.get("type")==-1)
+                        document.getElementById("type").innerHTML = "消极性新闻";
+                    document.getElementById("time").innerHTML = feature.get("time");
+                    document.getElementById("positive").innerHTML = feature.get("positive");
+                    document.getElementById("negative").innerHTML = feature.get("negative");
+                    document.getElementById("comment").innerHTML = feature.get("comment");
                     container.style.display = 'block';
                 }
                 popupCloser.onclick = function () {
@@ -664,6 +669,8 @@
 
     function loadheatmap() {
         map.removeLayer(vector);
+        if(typeof (heatmap)!="undefined")
+            map.removeLayer(heatmap);
         heatmap = new ol.layer.Heatmap({
             source: vectorSource,
             blur: parseInt(16, 10),
@@ -678,10 +685,11 @@
             type: "post",
             url: "${path}/data/loadData.action",
             data: {
-                "class": station_class
+                "type": station_class
             },
             success: function $(data) {
                 geojsonObject = data;
+                console.log(geojsonObject)
                 if (typeof geojsonObject != "undefined") {
                     vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(geojsonObject)
@@ -723,7 +731,7 @@
 
     function popupClose() {
 
-        if (feature.get("f4") == 2) {
+        if (feature.get("type") == -1) {
             feature.setStyle(superStyle);
         } else {
             feature.setStyle(destinationStyle);
@@ -736,7 +744,7 @@
         return false;
     }
 
-    function update() {
+    /*function update() {
         var NAME = document.getElementById("name").innerHTML;
         var ADDRESS = document.getElementById("address").innerHTML;
         var PHONE = document.getElementById("phone").innerHTML;
@@ -746,7 +754,6 @@
 
         $.ajax({
             type: "post",
-            url: "${path}/data/editData.action",
             async: false,
             data: {
                 "ID": std_id,
@@ -765,37 +772,33 @@
         vectorLayer.getSource().clear();
         map.removeLayer(vectorLayer);
         vectorLayer = null;
-        if (feature.get("f4") == 1) {
+        if (feature.get("class") == 1) {
             loadData('destination');
         } else {
             loadData('super');
         }
 
 
-    }
+    }*/
 
     function addData() {
-        var NAME = document.getElementById("name").innerHTML;
-        var ADDRESS = document.getElementById("address").innerHTML;
-        var PHONE = document.getElementById("phone").innerHTML;
-        var TIME = document.getElementById("time").innerHTML;
-        var PRICE = document.getElementById("price").innerHTML;
-        var PORT = document.getElementById("port").innerHTML;
+        var news_id = document.getElementById("news_id").innerHTML;
+        var location = document.getElementById("location").innerHTML;
+        var time = document.getElementById("time").innerHTML;
+        var comment = document.getElementById("comment").innerHTML;
         console.log(newStaPro);
         $.ajax({
             type: "post",
             url: "${path}/data/addData.action",
             async: false,
             data: {
-                "NAME": NAME,
-                "ADDRESS": ADDRESS,
-                "PHONE": PHONE,
-                "TIME": TIME,
-                "PRICE": PRICE,
-                "PORT": PORT,
-                "CLASS": sta_class,
-                "LONGITUDE": coordinate[0],
-                "LATITUDE": coordinate[1]
+                "news_id": news_id,
+                "location": location,
+                "time": time,
+                "type": sta_class,
+                "comment": comment,
+                "lon": coordinate[0],
+                "lat": coordinate[1]
             },
             success: function (data) {
                 alert("添加成功");
@@ -822,7 +825,7 @@
         }
 
 
-        var property = 'f2';
+        var property = 'f1';
         for (var i = 0, ii = features.length; i < ii; i++) {
 
             if (features[i].get(property).indexOf(value) >= 0) {
@@ -840,16 +843,17 @@
         var coordinate = ol.extent.getCenter(feature.getGeometry().getExtent());
         console.log(ol.extent.getCenter(feature.getGeometry().getExtent()));
         overlay.setPosition(coordinate);
-        var std_Im = document.getElementById('stationImg');
-        std_id = feature.get("f1");
-        std_Im.src = 'loadImage.jsp?STD_ID=' + std_id;
-        document.getElementById("std_id").value = std_id;
-        document.getElementById("name").innerHTML = feature.get("f2");
-        document.getElementById("address").innerHTML = feature.get("f3");
-        document.getElementById("phone").innerHTML = feature.get("f5");
-        document.getElementById("time").innerHTML = feature.get("f6");
-        document.getElementById("price").innerHTML = feature.get("f7");
-        document.getElementById("port").innerHTML = feature.get("f8");
+        std_id = feature.get("comment_id");
+        document.getElementById("news_id").innerHTML = feature.get("news_id");
+        document.getElementById("location").innerHTML = feature.get("location");
+        if(feature.get("type")==1)
+            document.getElementById("type").innerHTML = "积极性新闻";
+        else if(feature.get("type")==-1)
+            document.getElementById("type").innerHTML = "消极性新闻";
+        document.getElementById("time").innerHTML = feature.get("time");
+        document.getElementById("positive").innerHTML = feature.get("positive");
+        document.getElementById("negative").innerHTML = feature.get("negative");
+        document.getElementById("comment").innerHTML = feature.get("comment");
 
         container.style.display = 'block';
         console.log("lal");
@@ -895,8 +899,6 @@
     }
 
     edit.onclick = function () {
-
-
         for (var i = 0; i < item_length; i++) {
             item_value[i] = item[i].innerHTML;
         }
@@ -907,7 +909,7 @@
             item[1].innerHTML = '<input type="txt" size="30" class="item_input"  value="' + item_value[1] + '">';
             item[2].innerHTML = '<input type="txt" size="30" class="item_input"  value="' + item_value[2] + '">';
             for (i = 3; i < item_length; i++) {
-                item[i].innerHTML = '<input type="txt" size="5" class="item_input"  value="' + item_value[i] + '">';
+                item[i].innerHTML = '<input type="txt" size=+"5" class="item_input"  value="' + item_value[i] + '">';
             }
             statu = 1;
         } else {
@@ -922,8 +924,6 @@
             statu = 0;
             if (addSta == 1) {
                 addData();
-            } else {
-                update();
             }
         }
         vectorLayer.getSource().clear();
@@ -946,34 +946,6 @@
         });
     });
 
-
-    function fileSelect() {
-        if (email == "null") {
-            alert("您现在是游客身份，不能上传图片！");
-        } else if (std_id == '') {
-            alert("请先保存信息后再进行上传图片操作！");
-
-        } else {
-            document.getElementById("image").click();
-        }
-    }
-
-    function fileSelected(file) {
-        var stationImg = document.getElementById('stationImg');
-        if (file.files && file.files[0]) {
-            stationImg.src = window.URL.createObjectURL(file.files[0]);
-        }
-    }
-
-    $(document).ready(function () {
-        $("#updateImage").ajaxForm(function (data) {
-            if (data == "上传成功") {
-                alert("上传成功!");
-            } else {
-                alert("上传成功!！");
-            }
-        });
-    });
 
     $(document).ready(function () {
         $('input[type=radio][name=item]').change(function () {
@@ -1021,15 +993,15 @@
         container.style.display = 'block';
 
         $("#delete").hide();
-        document.getElementById("name").innerHTML = '名称';
-        document.getElementById("address").innerHTML = '地址';
-        document.getElementById("phone").innerHTML = '电话';
-        document.getElementById("time").innerHTML = '--';
-        document.getElementById("price").innerHTML = '--';
-        document.getElementById("port").innerHTML = '--';
-        document.getElementById('stationImg').src = '';
+        document.getElementById("news_id").innerHTML = '新闻名称';
+        document.getElementById("location").innerHTML = '地址';
+        document.getElementById("type").innerHTML = '类型';
+        document.getElementById("time").innerHTML = '20191023';
+        document.getElementById("positive").innerHTML = '--';
+        document.getElementById("negative").innerHTML = '--';
+        document.getElementById('comment').innerHTML = '...';
         std_id = '';
-        edit.onclick();
+
         popupCloser.onclick = function () {
             addSta = 0;
             layer.getSource().clear();
@@ -1086,8 +1058,9 @@
     function addSuperSta() {
         document.getElementById("map").style.cursor = "crosshair";
         addSta = 1;
+        statu = 0;
         var str = $('input[type=radio][name=item]').val();
-        sta_class = 2;
+        sta_class = -1;
         console.log("super");
 
     }
@@ -1095,6 +1068,7 @@
     function addDestinationSta() {
         document.getElementById("map").style.cursor = "crosshair";
         addSta = 1;
+        statu = 0;
         sta_class = 1;
         console.log("des");
     }
@@ -1241,7 +1215,7 @@
     function removeRoute() {
         sourceVector.clear();
         for (var i = 0; i < closeFeatures.length; i++) {
-            if (closeFeatures[i].get("f4") == 2) {
+            if (closeFeatures[i].get("class") == 2) {
                 closeFeatures[i].setStyle(superStyle);
             } else {
                 closeFeatures[i].setStyle(destinationStyle);
@@ -1255,12 +1229,11 @@
         FID: 'ew4MDmXnBq'
     }
     var btn = 0;
-    $("#sidenavToggler").click(function(){
-        if(btn==0) {
+    $("#sidenavToggler").click(function () {
+        if (btn == 0) {
             $(".nav-item img").hide();
             btn = 1;
-        }
-        else {
+        } else {
             $(".nav-item img").show();
             btn = 0;
         }

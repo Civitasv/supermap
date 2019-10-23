@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.hs.mapper.NewsMapper">
+    <resultMap id="NewsResultMap" type="News">
+        <result property="news_id" column="news_id"/>
+        <result property="comment_id" column="comment_id"/>
+        <result property="comment" column="comment"/>
+        <result property="location" column="location"/>
+        <result property="time" column="time"/>
+        <result property="confidence" column="confidence"/>
+        <result property="positive" column="positive"/>
+        <result property="negative" column="negative"/>
+        <result property="type" column="type"/>
+        <result property="lat" column="lat"/>
+        <result property="lon" column="lon"/>
+    </resultMap>
+    <resultMap id="ChartResultMap" type="Chart">
+        <result property="province" column="province"/>
+        <result property="coldNum" column="cold"/>
+        <result property="warmNum" column="warm"/>
+        <result property="summary" column="summary"/>
+    </resultMap>
+    <select id="getNews" resultMap="NewsResultMap">
+        select * from public.comment
+    </select>
+
+    <select id="getColdNews" resultMap="NewsResultMap">
+        select * from public.comment where type=-1
+    </select>
+
+    <select id="getWarmNews" resultMap="NewsResultMap">
+        select * from public.comment where type=1
+    </select>
+
+    <insert id="addData" parameterType="map">
+        INSERT INTO public.comment (news_id, comment,location,time,confidence,positive,negative,type,lat,lon) VALUES
+        (#{news_id},#{comment},#{location},#{time},#{confidence},#{positive},#{negative},#{type},#{lat},#{lon})
+    </insert>
+
+    <delete id="deleteData" parameterType="int">
+        DELETE FROM public.comment WHERE comment_id=#{comment_id}
+    </delete>
+
+    <select id="queryChartData" resultMap="ChartResultMap">
+        select province,count(province) as summary, sum(case when type = 1 then 1 else '0' end) as warm,
+        sum(case when type = -1 then 1 else '0' end) as cold from public.comment group by province
+    </select>
+</mapper>
