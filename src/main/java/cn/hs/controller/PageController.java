@@ -22,6 +22,8 @@ public class PageController {
         return new ModelAndView("home");
     }
 
+    @RequestMapping("newhome")
+    public ModelAndView newhome(){ return new ModelAndView("newhome");}
 
     @RequestMapping("login")
     public ModelAndView login(){
@@ -74,4 +76,5 @@ public class PageController {
     public ModelAndView destinationIntro(){
         return new ModelAndView("destinationIntro");
     }
+
 }

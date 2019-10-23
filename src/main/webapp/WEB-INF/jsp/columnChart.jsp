@@ -103,7 +103,7 @@
 
 				for (var i = 0; i < result.length; i++) {
 
-					option.dataset.source.push([ result[i].province, result[i].superNum, result[i].destinationNum, result[i].summary ]);
+					option.dataset.source.push([ result[i].province, result[i].coldNum, result[i].warmNum, result[i].summary ]);
 
 				}
 			}

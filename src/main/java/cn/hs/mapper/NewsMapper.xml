@@ -44,7 +44,7 @@
     </delete>
 
     <select id="queryChartData" resultMap="ChartResultMap">
-        select province,count(province) as summary, sum(case when type = 1 then -1 else '0' end) as warm,
+        select province,count(province) as summary, sum(case when type = 1 then 1 else '0' end) as warm,
         sum(case when type = -1 then 1 else '0' end) as cold from public.comment group by province
     </select>
 </mapper>

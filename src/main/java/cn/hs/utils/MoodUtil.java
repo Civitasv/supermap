@@ -14,11 +14,12 @@ public class MoodUtil {
         client.setConnectionTimeoutInMillis(2000);
         client.setSocketTimeoutInMillis(60000);
 
+        JSONObject res_stm = client.sentimentClassify(text, null);
+        JSONObject res_smy = client.newsSummary(text, 300,null);
 
-        JSONObject res = client.sentimentClassify(text, null);
-        System.out.println(res.toString(2));
+        System.out.println(res_stm.toString(2));
 
-        return res;
+        return res_stm;
     }
 
 }

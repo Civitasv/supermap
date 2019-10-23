@@ -21,13 +21,14 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="${path}/js/ol.js" type="text/javascript"></script>
-
+    <link href="${path}/css/awesome-bootstrap-checkbox.css">
     <link href="${path}/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="${path}/css/measuretool.css">
     <link rel="shortcut icon" type="image/x-icon" href="${path}/images/tesla.png"/>
     <script src="${path}/js/measuretool.js" type="text/javascript"></script>
     <script type="text/javascript" src="${path}/supermap/include-web.js"></script>
     <script type="text/javascript" src="${path}/supermap/include-openlayers.js"></script>
+    <link rel="shortcut icon" href="${path}/images/favicon.ico" type="image/x-icon"/>
     <script>
         var startPath = path + "/images/start.png";
         var endPath = path + "/images/closeStation.png";
@@ -377,12 +378,28 @@
             scrolling="no" frameborder="0"></iframe>
 </div>
 
+<form role="form">
+    <div class="radio radio-primary" style="position:absolute;top:70px;right:180px;
+  line-height: 30px;">
+        <input type="radio" name="item" id="item1" value="暖调新闻" checked>
+        <label for="item1">
+        </label>
+        <span style="font-weight: bold;">&nbsp;&nbsp;暖调新闻</span>
+    </div>
+    <div class="radio" style="position:absolute;top:70px;right:50px;
+  line-height: 30px;">
+        <input type="radio" name="item" id="item2" value="冷调新闻">
+        <label for="item2">
+        </label>
+        <span style="font-weight: bold;">&nbsp;&nbsp;冷调新闻</span>
 
-<form>
+    </div>
+</form>
+<%--<form>
     <div
             style="position:absolute;top:70px;right:180px;
   line-height: 30px;">
-        <input id="item1" type="radio" name="item" value="暖调新闻" checked>
+        <input id="item1" type="radio" name="item" value="暖调新闻" >
         <div id="info"></div>
         <label for="item1"></label> <span
             style="margin-left: 10px;font-weight:bold">暖调新闻</span>
@@ -390,12 +407,12 @@
     <div
             style="position:absolute;top:70px;right:50px;
   line-height: 30px;">
-        <input id="item2" type="radio" name="item" value="冷调新闻"> <label
+        <input id="item2" type="radio" name="item" value="冷调新闻" checked> <label
             for="item2"></label> <span
             style="margin-left: 10px;font-weight:bold">冷调新闻</span>
     </div>
 
-</form>
+</form>--%>
 
 <div class="dropdown" id="addStationBt" style="position:absolute;top:54px;right:530px;
   line-height: 30px;">
@@ -432,7 +449,7 @@
                 <td><label id="location" name="editInfo">地址</label></td>
             </tr>
             <tr>
-                <td><i class="fa fa-fw fa-phone"></i></td>
+                <td><i class="fa fa-adjust"></i></td>
                 <td><label id="type" name="editInfo">类型</label></td>
             </tr>
         </table>
@@ -633,7 +650,10 @@
 
                     document.getElementById("news_id").innerHTML = feature.get("news_id");
                     document.getElementById("location").innerHTML = feature.get("location");
-                    document.getElementById("type").innerHTML = feature.get("type");
+                    if(feature.get("type")==1)
+                        document.getElementById("type").innerHTML = "积极性新闻";
+                    else if(feature.get("type")==-1)
+                        document.getElementById("type").innerHTML = "消极性新闻";
                     document.getElementById("time").innerHTML = feature.get("time");
                     document.getElementById("positive").innerHTML = feature.get("positive");
                     document.getElementById("negative").innerHTML = feature.get("negative");
@@ -649,6 +669,8 @@
 
     function loadheatmap() {
         map.removeLayer(vector);
+        if(typeof (heatmap)!="undefined")
+            map.removeLayer(heatmap);
         heatmap = new ol.layer.Heatmap({
             source: vectorSource,
             blur: parseInt(16, 10),
@@ -732,7 +754,6 @@
 
         $.ajax({
             type: "post",
-            url: "${path}/data/editData.action",
             async: false,
             data: {
                 "ID": std_id,
@@ -825,7 +846,10 @@
         std_id = feature.get("comment_id");
         document.getElementById("news_id").innerHTML = feature.get("news_id");
         document.getElementById("location").innerHTML = feature.get("location");
-        document.getElementById("type").innerHTML = feature.get("type");
+        if(feature.get("type")==1)
+            document.getElementById("type").innerHTML = "积极性新闻";
+        else if(feature.get("type")==-1)
+            document.getElementById("type").innerHTML = "消极性新闻";
         document.getElementById("time").innerHTML = feature.get("time");
         document.getElementById("positive").innerHTML = feature.get("positive");
         document.getElementById("negative").innerHTML = feature.get("negative");
