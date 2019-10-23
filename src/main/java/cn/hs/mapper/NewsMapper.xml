@@ -23,15 +23,15 @@
         <result property="summary" column="summary"/>
     </resultMap>
     <select id="getNews" resultMap="NewsResultMap">
-        select * from public.comment limit 1000
+        select * from public.comment
     </select>
 
     <select id="getColdNews" resultMap="NewsResultMap">
-        select * from public.comment where type=-1 limit 1000
+        select * from public.comment where type=-1
     </select>
 
     <select id="getWarmNews" resultMap="NewsResultMap">
-        select * from public.comment where type=1 limit 1000
+        select * from public.comment where type=1
     </select>
 
     <insert id="addData" parameterType="map">

@@ -1,4 +1,5 @@
 import cn.hs.pojo.Chart;
+import cn.hs.utils.MoodUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class JDBCTest {
 
     @Test
     public void testSession() throws Exception{
-        String geojson = sqlSessionFactory.openSession().selectOne("cn.hs.mapper.JDBCMapper.getSuperStation");
-        System.out.println(geojson);
+        String comment = "我很开心";
+        System.out.println(MoodUtil.getMood(comment));
     }
 }

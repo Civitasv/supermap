@@ -42,10 +42,11 @@ public class INewsServiceImpl implements NewsService {
             jsonObject3.put("news_id",news.getNews_id());
             jsonObject3.put("comment_id",news.getComment_id());
             jsonObject3.put("location",news.getLocation());
-            jsonObject3.put("class",news.getType());
+            jsonObject3.put("type",news.getType());
             jsonObject3.put("comment",news.getComment());
             jsonObject3.put("time",news.getTime());
             jsonObject3.put("negative",news.getNegative());
+            jsonObject3.put("positive",news.getPositive());
             jsonObject1.put("properties",jsonObject3);
             jsonArray.put(jsonObject1);
         }
@@ -74,10 +75,11 @@ public class INewsServiceImpl implements NewsService {
             jsonObject3.put("news_id",news.getNews_id());
             jsonObject3.put("comment_id",news.getComment_id());
             jsonObject3.put("location",news.getLocation());
-            jsonObject3.put("class",news.getType());
+            jsonObject3.put("type",news.getType());
             jsonObject3.put("comment",news.getComment());
             jsonObject3.put("time",news.getTime());
             jsonObject3.put("negative",news.getNegative());
+            jsonObject3.put("positive",news.getPositive());
             jsonObject1.put("properties",jsonObject3);
             jsonArray.put(jsonObject1);
         }
@@ -107,10 +109,11 @@ public class INewsServiceImpl implements NewsService {
             jsonObject3.put("news_id",news.getNews_id());
             jsonObject3.put("comment_id",news.getComment_id());
             jsonObject3.put("location",news.getLocation());
-            jsonObject3.put("class",news.getType());
+            jsonObject3.put("type",news.getType());
             jsonObject3.put("comment",news.getComment());
             jsonObject3.put("time",news.getTime());
             jsonObject3.put("negative",news.getNegative());
+            jsonObject3.put("positive",news.getPositive());
             jsonObject1.put("properties",jsonObject3);
             jsonArray.put(jsonObject1);
         }

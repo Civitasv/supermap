@@ -1,11 +1,11 @@
 package cn.hs.controller;
 
 import cn.hs.pojo.News;
-import cn.hs.service.JDBCService;
 import cn.hs.service.NewsService;
+import cn.hs.utils.MoodUtil;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -25,7 +25,7 @@ public class DataController {
     public ModelAndView loadData(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String CLASS = request.getParameter("class");
+        String CLASS = request.getParameter("type");
         System.out.println(CLASS);
         if (CLASS.equals("super")) {
             String geojson = newsService.getColdNews();
@@ -56,18 +56,28 @@ public class DataController {
     public ModelAndView addData(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("NAME");
-        String location = request.getParameter("ADDRESS");
-        String comment = request.getParameter("PHONE");
-        String time = request.getParameter("TIME");
-        String negative = request.getParameter("PRICE");
-        Double lng = Double.parseDouble(request.getParameter("LONGITUDE"));
-        Double lat = Double.parseDouble(request.getParameter("LATITUDE"));
-        int type = Integer.parseInt(request.getParameter("CLASS"));
-        News news = new News(id,comment,location,Integer.parseInt(time),0,0,Double.parseDouble(negative),type,lat,lng);
+        String news_id = request.getParameter("news_id");
+        String location = request.getParameter("location");
+        String comment = request.getParameter("comment");
+        String time = request.getParameter("time");
+        Double lng = Double.parseDouble(request.getParameter("lon"));
+        Double lat = Double.parseDouble(request.getParameter("lat"));
+        int type = Integer.parseInt(request.getParameter("type"));
+        JSONObject jsonObject = MoodUtil.getMood(comment);
+        JSONObject items = jsonObject.getJSONArray("items").getJSONObject(0);
+        double confidence = items.getDouble("confidence");
+        double positive = items.getDouble("positive_prob");
+        double negative = items.getDouble("negative_prob");
+        if(negative-positive<=0.1&&negative-positive>=-0.1)
+            type = 0;
+        else if(negative-positive>=0.3)
+            type = -1;
+        else
+            type = 1;
+        News news = new News(news_id,comment,location,Integer.parseInt(time),confidence,positive,negative,type,lat,lng);
         newsService.addData(news);
         PrintWriter out = response.getWriter();
-        out.println(id);
+        out.println(news_id);
         out.close();
         return null;
     }

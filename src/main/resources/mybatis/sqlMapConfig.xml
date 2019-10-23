@@ -13,7 +13,6 @@
         <typeAlias type="cn.hs.pojo.News" alias="News"/>
     </typeAliases>
     <mappers>
-        <mapper resource="cn/hs/mapper/JDBCMapper.xml"/>
         <mapper resource="cn/hs/mapper/NewsMapper.xml"/>
     </mappers>
 
