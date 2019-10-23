@@ -20,7 +20,7 @@ public class MoodController {
     public ModelAndView baidu_mmod(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=utf-8");
         response.setCharacterEncoding("GBK");
-        String name = request.getParameter("name");
+        String name = request.getParameter("nlp_input");
         JSONObject mood = MoodUtil.getMood(name);
         PrintWriter out = response.getWriter();
         out.println(mood);
