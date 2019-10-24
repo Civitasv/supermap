@@ -273,7 +273,7 @@
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="logo"
                 style="text-align: center;margin-bottom: 20px;margin-top: 50px;">
-                <img src="${path}/images/tesla.png" width="100" height="auto" alt="" class="img-responsive"/>
+                <a href="${path}"><img src="${path}/images/tesla.png" width="100" height="auto" alt="" class="img-responsive"/></a>
             </li>
             <li class="nav-item hs" data-toggle="tooltip" data-placement="right"
                 title="地图"><a class="nav-link" href="${path}/pages/index.action"> <i
@@ -338,6 +338,7 @@
                                         href="javascript:loginOut()"> <i class="fa fa-fw fa-sign-out"></i>退出
                 </a></li>
             </form>
+
         </ul>
     </div>
 </nav>
@@ -520,6 +521,8 @@
     var result = 0;
     var start;
     var end;
+    var isClose = 1;
+    var isHeat = 0;
     //矢量图层数据源
     var sourceVector = new ol.source.Vector();
     var vector;
@@ -633,7 +636,7 @@
                 $("#edit").show();
             }
             // addStation(coordinate);
-            else {
+            else if (isClose != 0 && isHeat == 0) {
                 var pixel = map.getEventPixel(evt.originalEvent);
                 feature = map.forEachFeatureAtPixel(pixel, function (feature, vectorLayer) {
                     return feature;
@@ -659,6 +662,7 @@
                     document.getElementById("negative").innerHTML = feature.get("negative");
                     document.getElementById("comment").innerHTML = feature.get("comment");
                     container.style.display = 'block';
+                    isClose = 0;
                 }
                 popupCloser.onclick = function () {
                     popupClose();
@@ -668,7 +672,6 @@
     });
 
     function loadheatmap() {
-        map.removeLayer(vector);
         if (typeof (heatmap) != "undefined")
             map.removeLayer(heatmap);
         heatmap = new ol.layer.Heatmap({
@@ -677,10 +680,16 @@
             radius: parseInt(10, 10),
         });
         map.addLayer(heatmap);
+        map.removeLayer(vector);
         map.removeLayer(vectorLayer);
+        isHeat = 1;
     }
 
     function loadData(station_class) {
+        isClose = 1;
+        isHeat = 0;
+        if (typeof (heatmap) != "undefined")
+            map.removeLayer(heatmap);
         $.ajax({
             type: "post",
             url: "${path}/data/loadData.action",
@@ -731,16 +740,18 @@
 
     function popupClose() {
 
-        if (feature.get("type") == -1) {
+        if (currentStaClass == 2) {
             feature.setStyle(superStyle);
         } else {
             feature.setStyle(destinationStyle);
         }
+
         container.style.display = 'none';
         popupCloser.blur();
         var edit = document.getElementById('edit');
         edit.innerHTML = '编辑';
         statu = 0;
+        isClose = 1;
         return false;
     }
 
@@ -950,7 +961,10 @@
 
     $(document).ready(function () {
         $('input[type=radio][name=item]').change(function () {
-
+            container.style.display = 'none';
+            popupCloser.blur();
+            statu = 0;
+            isClose = 1;
             currentRadio = this.value;
             if (this.value == "冷调新闻") {
 
@@ -1029,6 +1043,7 @@
 
     function findClosestStation() {
         findClosestSta = 1;
+        addSta = 0;
         document.getElementById("map").style.cursor = "crosshair";
     }
 
@@ -1214,6 +1229,9 @@
     }
 
     function removeRoute() {
+        document.getElementById("map").style.cursor = "default";
+        findClosestSta = 0;
+        addSta = 0;
         sourceVector.clear();
         for (var i = 0; i < closeFeatures.length; i++) {
             if (closeFeatures[i].get("class") == 2) {

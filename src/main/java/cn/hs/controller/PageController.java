@@ -30,6 +30,11 @@ public class PageController {
         return new ModelAndView("login");
     }
 
+    @RequestMapping("newview")
+    public ModelAndView newview(){
+        return new ModelAndView("newview");
+    }
+
     @RequestMapping("register")
     public ModelAndView register(){
         return new ModelAndView("register");
