@@ -478,7 +478,7 @@
         </table>
         <table>
             <tr>
-                <p id="comment" name="" editInfo>...</p>
+                <p id="comment" name="editInfo">...</p>
             </tr>
 
         </table>
@@ -650,9 +650,9 @@
 
                     document.getElementById("news_id").innerHTML = feature.get("news_id");
                     document.getElementById("location").innerHTML = feature.get("location");
-                    if(feature.get("type")==1)
+                    if (feature.get("type") == 1)
                         document.getElementById("type").innerHTML = "积极性新闻";
-                    else if(feature.get("type")==-1)
+                    else if (feature.get("type") == -1)
                         document.getElementById("type").innerHTML = "消极性新闻";
                     document.getElementById("time").innerHTML = feature.get("time");
                     document.getElementById("positive").innerHTML = feature.get("positive");
@@ -669,7 +669,7 @@
 
     function loadheatmap() {
         map.removeLayer(vector);
-        if(typeof (heatmap)!="undefined")
+        if (typeof (heatmap) != "undefined")
             map.removeLayer(heatmap);
         heatmap = new ol.layer.Heatmap({
             source: vectorSource,
@@ -846,9 +846,9 @@
         std_id = feature.get("comment_id");
         document.getElementById("news_id").innerHTML = feature.get("news_id");
         document.getElementById("location").innerHTML = feature.get("location");
-        if(feature.get("type")==1)
+        if (feature.get("type") == 1)
             document.getElementById("type").innerHTML = "积极性新闻";
-        else if(feature.get("type")==-1)
+        else if (feature.get("type") == -1)
             document.getElementById("type").innerHTML = "消极性新闻";
         document.getElementById("time").innerHTML = feature.get("time");
         document.getElementById("positive").innerHTML = feature.get("positive");
@@ -905,12 +905,13 @@
 
         if (statu == 0) {
             edit.innerHTML = '保存';
-            item[0].innerHTML = '<input type="txt" size="30" class="item_input"  value="' + item_value[0] + '">';
-            item[1].innerHTML = '<input type="txt" size="30" class="item_input"  value="' + item_value[1] + '">';
-            item[2].innerHTML = '<input type="txt" size="30" class="item_input"  value="' + item_value[2] + '">';
-            for (i = 3; i < item_length; i++) {
-                item[i].innerHTML = '<input type="txt" size=+"5" class="item_input"  value="' + item_value[i] + '">';
-            }
+            item[0].innerHTML = '<input type="text" size="30" class="item_input"  value="' + item_value[0] + '">';
+            item[1].innerHTML = '<input type="text" size="30" class="item_input"  value="' + item_value[1] + '">';
+            item[2].innerHTML = '<input type="text" size="30" class="item_input"  value="' + item_value[2] + '">';
+            item[3].innerHTML = '<input type="text" size="10" class="item_input"  value="' + item_value[3] + '">';
+            item[4].innerHTML = '<input type="text" size="10" class="item_input"  value="' + item_value[4] + '">';
+            item[5].innerHTML = '<input type="text" size="10" class="item_input"  value="' + item_value[5] + '">';
+            item[6].innerHTML = '<textarea rows="3" cols="40" class="item_input"  value="' + item_value[6] + '">';
             statu = 1;
         } else {
             edit.innerHTML = '编辑';

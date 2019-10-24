@@ -8,7 +8,7 @@
         <result property="comment_id" column="comment_id"/>
         <result property="comment" column="comment"/>
         <result property="location" column="location"/>
-        <result property="time" column="time"/>
+        <result property="time" column="comment_time"/>
         <result property="confidence" column="confidence"/>
         <result property="positive" column="positive"/>
         <result property="negative" column="negative"/>
@@ -26,6 +26,10 @@
         select * from public.comment
     </select>
 
+    <select id="getCount" resultType="Integer">
+        select count(*) from public.comment
+    </select>
+
     <select id="getColdNews" resultMap="NewsResultMap">
         select * from public.comment where type=-1
     </select>
@@ -35,7 +39,7 @@
     </select>
 
     <insert id="addData" parameterType="map">
-        INSERT INTO public.comment (news_id, comment,location,time,confidence,positive,negative,type,lat,lon) VALUES
+        INSERT INTO public.comment (news_id, comment,location,comment_time,confidence,positive,negative,type,lat,lon) VALUES
         (#{news_id},#{comment},#{location},#{time},#{confidence},#{positive},#{negative},#{type},#{lat},#{lon})
     </insert>
 

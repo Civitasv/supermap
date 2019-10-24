@@ -56,7 +56,7 @@ public class INewsServiceImpl implements NewsService {
 
     @Override
     public String getColdNews() {
-        List<News> newsList = sqlSessionFactory.openSession().selectList("cn.hs.mapper.NewsMapper.getNews");
+        List<News> newsList = sqlSessionFactory.openSession().selectList("cn.hs.mapper.NewsMapper.getColdNews");
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("type","FeatureCollection");
         JSONArray jsonArray = new JSONArray();
