@@ -176,7 +176,7 @@
 						    	<div class="col-md-6 col-sm-12 no-pad">
 							    	<div class="input-container">
 								    	<input type="text" id="address" name="address" />
-								    	<label for="address">地址</label>
+								    	<label for="address" id="adr_lb">地址</label>
                         	        
 								    	<div class="input-border-bottom"></div>
 							    	</div>
@@ -185,7 +185,8 @@
 						    	<!-- right side -->
 						    	<div class="col-md-6 col-sm-12 no-pad">
 							    	<div class="input-container">
-								    	<input type="text" id="sentiment" placeholder="情绪"/>
+								    	<input type="text" id="sentiment" />
+										<label for="sentiment" id="stm_lb">情绪</label>
 								    	<div class="input-border-bottom"></div>
 							    	</div>
 						    	</div>
@@ -193,8 +194,8 @@
 						    	<!-- full width -->
 						    	<div class="col-xs-12 text-center no-pad">                            
 							    	<div class="input-container no-mrg">
-								    	<textarea id="abstract" name="abstract"></textarea>
-								    	<label for="abstract">摘要</label>
+								    	<textarea id="summary" name="summary"></textarea>
+								    	<label for="summary" id="smy_lb">摘要</label>
 								    	<div class="input-border-bottom"></div>
 							    	</div>
 							    	<!-- notification container -->
@@ -210,31 +211,29 @@
 						<div class="contact-form-container col-md-6 col-sm-12 col-xs-12 " style="padding:0">
 						<div id="map" style="height:550px;padding:50px" ></div>
 							<script type="text/javascript">
-								var map = new ol.Map({
-									target: 'map',
-									controls: ol.control.defaults({attributionOptions: {collapsed: false}})
-											.extend([new ol.supermap.control.Logo()]),
-									view: new ol.View({
-										center: [114.36, 30.54],
-										zoom: 14,
-										projection: "EPSG:4326",
-									}),
-
-									layers: [new ol.layer.Tile({
-										source: new ol.source.Tianditu({
-											layerType: 'ter',
-											key: "1d109683f4d84198e37a38c442d68311",
-											projection: "EPSG:4326"
+								var url = (window.isLocal ? window.server : "http://support.supermap.com.cn:8090") + "/iserver/services/map-china400/rest/maps/China_4326";
+								new ol.supermap.MapService(url).getMapInfo(function (serviceResult) {
+									var mapJSONObj = serviceResult.result;
+									map = new ol.Map({
+										controls: ol.control.defaults({attributionOptions: {collapsed: false}})
+												.extend([new ol.supermap.control.Logo()]),
+										target: document.getElementById('map'),
+										view: new ol.View({
+											center: [114.3, 30.6],
+											projection: 'EPSG:4326',
+											maxZoom: 19,
+											zoom: 12
 										})
-									}), new ol.layer.Tile({
-										source: new ol.source.Tianditu({
-											layerType: 'ter',
-											key: "1d109683f4d84198e37a38c442d68311",
-											isLabel: true,
-											projection: "EPSG:4326"
-										})
-									})]
+									});
+								var options = ol.source.TileSuperMapRest.optionsFromMapJSON(url, mapJSONObj);
+								var layer = new ol.layer.Tile({
+									source: new ol.source.TileSuperMapRest(options)
 								});
+
+
+								});
+
+
 							</script>
 						</div>
 

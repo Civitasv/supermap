@@ -44,6 +44,8 @@ TABLE OF CONTENTS
 6.25 validate and submit subscribe form
 6.26 validate and submit contact us form
 */
+document.write("<script type='text/javascript' src="+path+"/supermap/include-web.js'></script>");
+document.write("<script type='text/javascript' src="+path+"/supermap/include-openlayers.js'></script>");
 
 (function ($) {
     "use strict";
@@ -727,19 +729,49 @@ TABLE OF CONTENTS
                     async: true,
                     url: url_dest+"?"+form_data,
                     success: function (output) {
-                        console.log(output['items']);
 
-                        //-- reset form
-                        $(form).trigger('reset');
-                        $(form).find('.filled').each(function (index, element) {
-                            $(this).removeClass('filled');
-                        });
+
+                        $("#adr_lb").attr("style","display:none;");
+                        $("#stm_lb").attr("style","display:none;");
+                        $("#smy_lb").attr("style","display:none;");
 
                         //-- show result
-                        $("#sentiment").val("confidence: "+output['items'][0]['confidence']+"\r"+
-                            "negative_prob: "+output['items'][0]['negative_prob']+"\r"+
-                            "positive_prob: "+output['items'][0]['positive_prob']+"\r"+
-                            "sentiment: "+output['items'][0]['sentiment']);
+                        $("#sentiment").val("confidence: "+output['confidence']+"\r"+
+                            "negative_prob: "+output['negative_prob']+"\r"+
+                            "positive_prob: "+output['positive_prob']+"\r"+
+                            "sentiment: "+output['sentiment']);
+
+                        $("#summary").val(output['summary']+"\r");
+
+                        $("#address").val("province: "+output['province']+"\r"+ "city: "+output['city']);
+
+
+                        map.addLayer(layer);
+                        vectorSource = new ol.source.Vector({
+                            features:[new ol.Feature({
+                                geometry: new ol.geom.Point([114.3, 30.6]),
+                            })]
+                        });
+                        var imgurl = path+'/images/super.png';
+
+                        map.setView(new ol.View({
+                            center: [104.3, 30.6],
+                            projection: 'EPSG:4326',
+                            maxZoom: 19,
+                            zoom: 10
+                        }));
+
+                        vectorLayer = new ol.layer.Vector({
+                            source: vectorSource,
+                            style: new ol.style.Style({
+                                image: new ol.style.Icon({
+                                    opacity: 1,
+                                    src: imgurl,
+                                    scale: 0.4
+                                }),
+                            })
+                        });
+                        map.addLayer(vectorLayer);
 
                         //-- hide loading
                         var wait_loading = setTimeout(function () {
