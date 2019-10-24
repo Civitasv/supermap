@@ -103,7 +103,7 @@
                             	<!-- end quote -->
                         	</div>
 							<div class="col-xs-12 no-pad text-left mrg-top-xs">
-								<a href="${path}/pages/view.action">
+								<a href="${path}/pages/newview.action">
 								<button type="submit" class="button button-green button-small">enter</button>
 								</a>
 							</div>
