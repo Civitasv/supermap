@@ -180,7 +180,7 @@
                     </form>
                     <form class="contact-form" method="post" enctype="multipart/form-data">
                         <!-- left side -->
-                        <div class="col-md-6 col-sm-12 no-pad">
+                        <div class="col-md-12 col-sm-12 no-pad">
                             <div class="input-container">
                                 <input type="text" id="address" name="address"/>
                                 <label for="address" id="adr_lb">地址</label>
@@ -190,7 +190,7 @@
                         </div>
                         <!-- end left side -->
                         <!-- right side -->
-                        <div class="col-md-6 col-sm-12 no-pad">
+                        <div class="col-md-12 col-sm-12 no-pad">
                             <div class="input-container">
                                 <input type="text" id="sentiment"/>
                                 <label for="sentiment" id="stm_lb">情绪</label>
@@ -216,7 +216,7 @@
                 </div>
                 <!-- end contact form container -->
                 <div class="contact-form-container col-md-6 col-sm-12 col-xs-12 " style="padding:0">
-                    <div id="map" style="height:550px;padding:50px"></div>
+                    <div id="map" style="height:600px;padding:50px"></div>
                     <script type="text/javascript">
                         var url = (window.isLocal ? window.server : "http://support.supermap.com.cn:8090") + "/iserver/services/map-china400/rest/maps/China_4326";
                         var addressUrl = (window.isLocal ? window.server : "http://support.supermap.com.cn:8090") + "/iserver/services/addressmatch-Address/restjsr/v1/address";
@@ -282,27 +282,39 @@
                                     async: true,
                                     url: url_dest + "?" + form_data,
                                     success: function (output) {
-
+										console.log(output);
                                         $("#adr_lb").attr("style", "display:none;");
                                         $("#stm_lb").attr("style", "display:none;");
                                         $("#smy_lb").attr("style", "display:none;");
-
                                         //-- show result
                                         $("#sentiment").val("confidence: " + output['confidence'] + "\r" +
                                             "negative_prob: " + output['negative_prob'] + "\r" +
                                             "positive_prob: " + output['positive_prob'] + "\r" +
                                             "sentiment: " + output['sentiment']);
-
                                         $("#summary").val(output['summary'] + "\r");
-
-                                        $("#address").val("province: " + output['province'] + "\r" + "city: " + output['city']);
-
+                                        var addr = "";
+                                        if(output['province'] != "unknown"){
+                                        	addr+=output['province'];
+										}
+										if(output['city'] != "unknown"){
+											addr+=output['city'];
+										}
+										if(output['town'] != "unknown"){
+											addr+=output['town']
+										}
+										if(output['county'] != "unknown"){
+											addr+=output['county']
+										}
+										if(output['detail'] != "unknown"){
+											addr+=output['detail']
+										}
+										$("#address").val("地址信息提取结果:" + addr);
 
                                         var geoCodeParam = new SuperMap.GeoCodingParameter({
-                                            address: output['province'] + output['city'],
+                                            address: addr,
                                             fromIndex: 0,
                                             toIndex: 10,
-                                            //prjCoordSys: "{epsgCode:3857}" , 3857? 4326?
+                                            prjCoordSys: "{epsgCode:4326}" ,// 3857? 4326?
                                             maxReturn: 1
                                         });
                                         addressMatchService.code(geoCodeParam, match);
@@ -311,7 +323,6 @@
                                         	console.log(obj.result);
 											var center_point = new ol.geom.Point([obj.result[0].location.x, obj.result[0].location.y]);
 											console.log((obj.result[0].location.x)/100000, (obj.result[0].location.y)/100000);
-
                                             vectorSource.clear();
                                             var features = [];
                                             obj.result.map(function (item) {
@@ -333,7 +344,7 @@
                                                 features.push(feature);
                                             });
                                             vectorSource.addFeatures(features);
-                                            view.animate({zoom: 11}, {center: [ (obj.result[0].location.x)/100000, (obj.result[0].location.y)/100000]});
+                                            view.animate({zoom: 11}, {center: [obj.result[0].location.x, obj.result[0].location.y]});
                                         }
 
 

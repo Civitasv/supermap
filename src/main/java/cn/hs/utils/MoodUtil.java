@@ -48,6 +48,10 @@ public class MoodUtil {
         String token = "";
         String txt_prov="unknown";
         String txt_city="unknown";
+        String txt_town = "unknown";
+        String txt_county = "unknown";
+        String txt_detail = "unknown";
+
         try {
             CloseableHttpClient token_client = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost("https://aip.baidubce.com/oauth/2.0/token");
@@ -82,19 +86,24 @@ public class MoodUtil {
                 JSONObject jsonObject = new JSONObject(geo_json);
                 txt_prov = jsonObject.getString("province");
                 txt_city = jsonObject.getString("city");
-                if (txt_prov.equals("")){
-                    txt_prov="unknown";
-                }
-                if (txt_city.equals("")){
-                    txt_city="unknown";
-                }
+                txt_town = jsonObject.getString("town");
+                txt_county = jsonObject.getString("county");
+                txt_detail = jsonObject.getString("detail");
             }
             geo_client.close();
         }catch (Exception e){
+            txt_prov="unknown";
+            txt_city="unknown";
+            txt_town = "unknown";
+            txt_county = "unknown";
+            txt_detail = "unknown";
             System.out.println(e.toString());
         }
         out_put.put("province",txt_prov);
         out_put.put("city",txt_city);
+        out_put.put("town",txt_town);
+        out_put.put("county",txt_county);
+        out_put.put("detail",txt_detail);
         return out_put;
     }
 
