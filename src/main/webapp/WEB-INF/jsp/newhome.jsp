@@ -2,8 +2,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +109,7 @@
                         <!-- end quote -->
                     </div>
                     <div class="col-xs-12 no-pad text-left mrg-top-xs">
-                        <a href="${path}/pages/view.action">
+                        <a href="${path}/pages/newview.action">
                             <button type="submit" class="button button-green button-small">enter</button>
                         </a>
                     </div>
