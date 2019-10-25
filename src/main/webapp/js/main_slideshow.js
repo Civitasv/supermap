@@ -44,8 +44,6 @@ TABLE OF CONTENTS
 6.25 validate and submit subscribe form
 6.26 validate and submit contact us form
 */
-document.write("<script type='text/javascript' src="+path+"/supermap/include-web.js'></script>");
-document.write("<script type='text/javascript' src="+path+"/supermap/include-openlayers.js'></script>");
 
 (function ($) {
     "use strict";
@@ -696,138 +694,7 @@ document.write("<script type='text/javascript' src="+path+"/supermap/include-ope
         });
         //-- end validate and submit subscribe form
 
-        //-- 6.26 validate and submit contact us form
-        $('.contact-form').validate({
-            rules: {
-                nlp_input: {
-                    required: true
-                }
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).parent().addClass('form-error');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).parent().removeClass('form-error');
-            },
-            errorPlacement: function (error, element) {
 
-            },
-            submitHandler: function (form) {
-                var url_dest = $(form).attr('action');
-                var form_data = $(form).serialize();
-
-                console.log(url_dest+"?"+form_data)
-                //-- show loading
-                $(form).find('.form-notif').find('label').remove();
-                $(form).find('.form-notif').append('<label class="loading">Please wait</label>').addClass('is-visible');
-
-                $.ajax({
-                    method: "POST",
-                    timeout: 500000,
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    async: true,
-                    url: url_dest+"?"+form_data,
-                    success: function (output) {
-
-
-                        $("#adr_lb").attr("style","display:none;");
-                        $("#stm_lb").attr("style","display:none;");
-                        $("#smy_lb").attr("style","display:none;");
-
-                        //-- show result
-                        $("#sentiment").val("confidence: "+output['confidence']+"\r"+
-                            "negative_prob: "+output['negative_prob']+"\r"+
-                            "positive_prob: "+output['positive_prob']+"\r"+
-                            "sentiment: "+output['sentiment']);
-
-                        $("#summary").val(output['summary']+"\r");
-
-                        $("#address").val("province: "+output['province']+"\r"+ "city: "+output['city']);
-
-
-                        map.addLayer(layer);
-                        vectorSource = new ol.source.Vector({
-                            features:[new ol.Feature({
-                                geometry: new ol.geom.Point([114.3, 30.6]),
-                            })]
-                        });
-                        var imgurl = path+'/images/super.png';
-
-                        map.setView(new ol.View({
-                            center: [104.3, 30.6],
-                            projection: 'EPSG:4326',
-                            maxZoom: 19,
-                            zoom: 10
-                        }));
-
-                        vectorLayer = new ol.layer.Vector({
-                            source: vectorSource,
-                            style: new ol.style.Style({
-                                image: new ol.style.Icon({
-                                    opacity: 1,
-                                    src: imgurl,
-                                    scale: 0.4
-                                }),
-                            })
-                        });
-                        map.addLayer(vectorLayer);
-
-                        //-- hide loading
-                        var wait_loading = setTimeout(function () {
-                            $(form).find('.form-notif').removeClass('is-visible');
-                            clearTimeout(this);
-                        }, 1000);
-
-                        //-- show notif success
-                        var show_notif = setTimeout(function () {
-                            $(form).find('.form-notif').find('label').remove();
-                            $(form).find('.form-notif').append('<label class="notif-success">Analysis Finished!</label>');
-                            $(form).find('.form-notif').addClass('is-visible');
-                            clearTimeout(this);
-                        }, 1500);
-
-                        //-- wait 5 seconds and then hide the notification
-                        var hide_notif = setTimeout(function () {
-                            $(form).find('.form-notif').removeClass('is-visible');
-                            clearTimeout(this);
-                        }, 7000);
-                    },
-                    error: function () {
-
-                        //-- reset form
-                        $(form).trigger('reset');
-                        $(form).find('.filled').each(function (index, element) {
-                            $(this).removeClass('filled');
-                        });
-
-                        //-- hide loading
-                        var wait_loading = setTimeout(function () {
-                            $(form).find('.form-notif').removeClass('is-visible');
-
-                            clearTimeout(this);
-                        }, 1000);
-
-                        //-- show notif error
-                        var show_notif = setTimeout(function () {
-                            $(form).find('.form-notif').find('label').remove();
-                            $(form).find('.form-notif').append('<label class="notif-error">Error</label>');
-                            $(form).find('.form-notif').addClass('is-visible');
-
-                            clearTimeout(this);
-                        }, 1500);
-
-                        //-- wait 5 seconds and then hide the notification
-                        var hide_notif = setTimeout(function () {
-                            $(form).find('.form-notif').removeClass('is-visible');
-
-                            clearTimeout(this);
-                        }, 7000);
-                    }
-                });
-                return false;
-            }
-        });
         //-- end validate and submit contact us form
 
         //Menu script

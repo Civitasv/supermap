@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <!-- 配置controller扫描包 -->
+    <context:component-scan base-package="cn.hs.controller"/>
+    <context:component-scan base-package="cn.hs.interceptor"/>
+    <!--拦截器-->
+    <mvc:interceptors>
+        <bean class="cn.hs.interceptor.OriginInterceptor"/>
+        <mvc:interceptor>
+            <!--暂时默认拦截所有请求，到时根据需求改变-->
+            <mvc:mapping path="/*"/>
+            <bean class="cn.hs.interceptor.OriginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--配置静态资源-->
+    <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/assets/" mapping="/assets/**"/>
+    <mvc:resources location="/data/" mapping="/data/**"/>
+    <mvc:resources location="/supermap/" mapping="/supermap/**"/>
+    <mvc:resources location="/js/" mapping="/js/**"/>
+    <mvc:resources location="/images/" mapping="/images/**"/>
+    <mvc:resources location="/fonts/" mapping="/fonts/**"/>
+    <mvc:resources location="/font-awesome/" mapping="/font-awesome/**"/>
+    <mvc:resources location="/bootstrap/" mapping="/bootstrap/**"/>
+    <mvc:resources location="/jquery/" mapping="/jquery/**"/>
+    <mvc:resources location="/jquery-easing/" mapping="/jquery-easing/**"/>
+
+    <!-- 加载controller需要的配置信息 -->
+    <context:property-placeholder location="classpath:env.properties"/>
+
+
+    <!--使用注解驱动来使用新的映射器和处理器-->
+    <mvc:annotation-driven/>
+    <mvc:view-controller path="/" view-name="pages/newhome.action"/>
+    <!--自定义视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+
+        <!-- 配置逻辑视图的前缀 -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!-- 配置逻辑视图的后缀 -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+</beans>
