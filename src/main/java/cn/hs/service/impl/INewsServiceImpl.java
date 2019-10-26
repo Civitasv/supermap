@@ -85,7 +85,7 @@ public class INewsServiceImpl implements NewsService {
 
     @Override
     public String getProvinceMap() {
-        String[] provinceArr = {"гЮ╨ёй║", "пб╫╝н╛нА╤ШвтжнгЬ", "╨Ч╠╠й║", "оЦ╦шль╠ПппуЧгЬ", "и╫нВй║", "тфдой║", "╨с╠╠й║", "╧ЦнВвЁвЕвтжнгЬ", "╨ёдой║", "аидЧй║", "ио╨ёйп", "╦ё╫╗й║", "ибнВй║", "кд╢╗й║", "╧Сжщй║", "╧Ц╤╚й║", "╠╠╬╘йп", "╟дцель╠ПппуЧгЬ", "╨заЗ╫╜й║", "╫╜куй║", "лЛ╫Рйп", "жьгЛйп", "и╫╤╚й║", "дзци╧евтжнгЬ", "уЦ╫╜й║", "дЧод╩ьвЕвтжнгЬ", "нВ╡ьвтжнгЬ", "╪╙ажй║", "╟╡╩уй║", "╫╜нВй║", "╨сдой║", "╦йкЮй║", "╨Чдой║", "л╗мЕй║"};
+        String[] provinceArr = {"И²▓Ф╣╥Г°│", "Ф√╟Г√├Г╩╢Е░╬Е╟■Х┤╙Ф╡╩Е▄╨", "Ф╧√Е▄≈Г°│", "И╕≥Ф╦╞Г┴╧Е┬╚Х║▄Ф■©Е▄╨", "Е╠╠Х╔©Г°│", "Д╨▒Е█≈Г°│", "Ф╡ЁЕ▄≈Г°│", "Е╧©Х╔©Её╝Ф≈▐Х┤╙Ф╡╩Е▄╨", "Ф╣╥Е█≈Г°│", "Х╬╫Е╝│Г°│", "Д╦┼Ф╣╥Е╦┌", "Г╕▐Е╩╨Г°│", "И≥∙Х╔©Г°│", "Е⌡⌡Е╥²Г°│", "Х╢╣Е╥·Г°│", "Е╧©Д╦°Г°│", "Е▄≈Д╨╛Е╦┌", "Ф╬ЁИ≈╗Г┴╧Е┬╚Х║▄Ф■©Е▄╨", "И╩▒И╬≥Ф╠÷Г°│", "Ф╠÷Х▀▐Г°│", "Е╓╘Ф╢╔Е╦┌", "И┤█Е╨├Е╦┌", "Е╠╠Д╦°Г°│", "Е├┘Х▓≥Е▐╓Х┤╙Ф╡╩Е▄╨", "Ф╣≥Ф╠÷Г°│", "Е╝│Е╓▐Е⌡·Ф≈▐Х┤╙Ф╡╩Е▄╨", "Х╔©Х≈▐Х┤╙Ф╡╩Е▄╨", "Е░┴Ф·≈Г°│", "Е╝┴Е╬╫Г°│", "Ф╠÷Х╔©Г°│", "Ф╡ЁЕ█≈Г°│", "Г■≤Х┌┐Г°│", "Ф╧√Е█≈Г°│", "Е▐╟Ф╧╬Г°│"};
         JSONArray jsonArray = new JSONArray();
         SqlSession session = sqlSessionFactory.openSession();
         for(int i=0;i<provinceArr.length;i++) {
@@ -98,11 +98,11 @@ public class INewsServiceImpl implements NewsService {
                 jsonObject2.put("url", url);
                 jsonObject2.put("value", 1);
                 if (news.getType() == -1) {
-                    jsonObject2.put("type","оШ╪╚пбне");
+                    jsonObject2.put("type","Ф╤┬Ф·│Ф√╟И≈╩");
                     jsonObject2.put("category", i+1);
                     jsonObject2.put("symbolSize", news.getNegative() * 50);
                 } else {
-                    jsonObject2.put("type","╩Щ╪╚пбне");
+                    jsonObject2.put("type","Г╖╞Ф·│Ф√╟И≈╩");
                     jsonObject2.put("category", i+1);
                     jsonObject2.put("symbolSize", news.getPositive() * 50);
                 }
