@@ -11,7 +11,18 @@ public class PageController {
     public ModelAndView index(){
         return new ModelAndView("index");
     }
-
+    @RequestMapping("point")
+    public ModelAndView point(){
+        return new ModelAndView("point");
+    }
+    @RequestMapping("link")
+    public ModelAndView link(){
+        return new ModelAndView("link");
+    }
+    @RequestMapping("wordCloud")
+    public ModelAndView wordCloud(){
+        return new ModelAndView("word_cloud");
+    }
     @RequestMapping("view")
     public ModelAndView view(){
         return new ModelAndView("view");
