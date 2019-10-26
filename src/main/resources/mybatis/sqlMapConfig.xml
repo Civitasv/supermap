@@ -11,6 +11,7 @@
     <typeAliases>
         <typeAlias type="cn.hs.pojo.Chart" alias="Chart"/>
         <typeAlias type="cn.hs.pojo.News" alias="News"/>
+        <typeAlias type="cn.hs.pojo.WordCloud" alias="WordCloud"/>
     </typeAliases>
     <mappers>
         <mapper resource="cn/hs/mapper/NewsMapper.xml"/>

@@ -22,10 +22,32 @@
         <result property="warmNum" column="warm"/>
         <result property="summary" column="summary"/>
     </resultMap>
+    <resultMap id="WordCloudResultMap" type="WordCloud">
+        <result property="top_count" column="top_count"/>
+        <result property="news_id" column="news_id"/>
+        <result property="title" column="title"/>
+        <result property="news_url" column="news_url"/>
+        <result property="comment_url" column="comment_url"/>
+        <result property="publish_time" column="publish_time"/>
+    </resultMap>
+    <select id="getProvinceNews" resultMap="NewsResultMap">
+        select * from public.comment where province=#{province} limit 5
+    </select>
+    <select id="getHotNews" resultMap="WordCloudResultMap">
+        SELECT * FROM public.source
+        ORDER BY top_count DESC
+        LIMIT 50 offset 0
+    </select>
     <select id="getNews" resultMap="NewsResultMap">
         select * from public.comment
     </select>
+    <select id="getNewsUrl" resultType="String">
+        select news_url from public.source where news_id=#{news_id}
+    </select>
 
+    <select id="getTenNews" resultMap="NewsResultMap">
+        select * from public.comment limit 40
+    </select>
     <select id="getCount" resultType="Integer">
         select count(*) from public.comment
     </select>
@@ -39,7 +61,8 @@
     </select>
 
     <insert id="addData" parameterType="map">
-        INSERT INTO public.comment (news_id, comment,location,comment_time,confidence,positive,negative,type,lat,lon) VALUES
+        INSERT INTO public.comment (news_id, comment,location,comment_time,confidence,positive,negative,type,lat,lon)
+        VALUES
         (#{news_id},#{comment},#{location},#{time},#{confidence},#{positive},#{negative},#{type},#{lat},#{lon})
     </insert>
 
@@ -51,4 +74,6 @@
         select province,count(province) as summary, sum(case when type = 1 then 1 else '0' end) as warm,
         sum(case when type = -1 then 1 else '0' end) as cold from public.comment group by province
     </select>
+
+
 </mapper>

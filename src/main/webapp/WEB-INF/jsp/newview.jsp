@@ -44,7 +44,9 @@
         .content-page {
             margin-top: 0;
         }
-
+        .content-page .content{
+            padding:0;
+        }
 
         .inform {
             margin-top: 5px;
@@ -55,12 +57,12 @@
             cursor: pointer;
         }
 
-        #TotalMap, #AveMap, #LinkMap, #Stats {
+        #TotalMap, #AveMap, #LinkMap, #Stats,#linkEcharts,#wordCloud {
             padding-left: 0;
             font-size:18px;
         }
 
-        #statistics {
+        #statistics ,#link-echarts,#word-cloud{
             width: 100%;
             height: 100%;
         }
@@ -69,6 +71,7 @@
             font-family: "navFont";
             src: url(${path}/fonts/方正清刻本悦宋简体.TTF);
         }
+
     </style>
     <script>
         $(function () {
@@ -76,12 +79,16 @@
             $(".aveMapContainer").hide();
             $(".linkMapContainer").hide();
             $(".totalMapContainer").hide();
+            $(".link-echarts").hide();
+            $(".word-cloud").hide();
 
             $("#TotalMap").click(function () {
                 $(".totalMapContainer").show();
                 $(".aveMapContainer").hide();
+                $(".link-echarts").hide();
                 $(".linkMapContainer").hide();
                 $(".stats").hide();
+                $(".word-cloud").hide();
                 $(".page-title").html("热力图");
                 loadTotalMap();
             })
@@ -89,7 +96,9 @@
                 $(".totalMapContainer").hide();
                 $(".aveMapContainer").show();
                 $(".linkMapContainer").hide();
+                $(".link-echarts").hide();
                 $(".stats").hide();
+                $(".word-cloud").hide();
                 $(".page-title").html("柱状图");
 
                 loadAveMap();
@@ -98,6 +107,7 @@
                 $(".totalMapContainer").hide();
                 $(".aveMapContainer").hide();
                 $(".linkMapContainer").show();
+                $(".link-echarts").hide();
                 $(".stats").hide();
                 $(".page-title").html("连接线图");
                 loadLinkMap();
@@ -106,8 +116,28 @@
                 $(".totalMapContainer").hide();
                 $(".aveMapContainer").hide();
                 $(".linkMapContainer").hide();
+                $(".link-echarts").hide();
                 $(".stats").show();
+                $(".word-cloud").hide();
                 $(".page-title").html("统计结果");
+            })
+            $("#linkEcharts").click(function () {
+                $(".totalMapContainer").hide();
+                $(".aveMapContainer").hide();
+                $(".linkMapContainer").hide();
+                $(".stats").hide();
+                $(".word-cloud").hide();
+                $(".link-echarts").show();
+                $(".page-title").html("echarts连接图");
+            })
+            $("#wordCloud").click(function () {
+                $(".totalMapContainer").hide();
+                $(".aveMapContainer").hide();
+                $(".linkMapContainer").hide();
+                $(".stats").hide();
+                $(".word-cloud").show();
+                $(".link-echarts").hide();
+                $(".page-title").html("词云");
             })
         })
     </script>
@@ -116,8 +146,9 @@
 <!-- Begin page -->
 <header class="am-topbar am-topbar-fixed-top" style="
      position: relative;
-    border-top-width: 0px;
-    margin-bottom: 0px;">
+     border-top-width: 0px;
+     margin-bottom: 0px;
+     ">
     <div class="am-topbar-left am-hide-sm-only">
         <a href="${path}/pages/newview.action" class="logo"><span>AINewsSuperMap</span><i class="zmdi zmdi-layers"></i></a>
     </div>
@@ -174,6 +205,8 @@
                 <li><a id="TotalMap" class="hbtn hb-border-top"><i class="fa fa-map-o"></i> TotalMap</a></li>
                 <li> <a id="AveMap" class="hbtn hb-border-right"><i class="fa fa-map"></i> AveMap</a></li>
                 <li> <a id="LinkMap" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i> LinkMap</a></li>
+                <li> <a id="linkEcharts" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i>linkEcharts</a></li>
+                <li> <a id="wordCloud" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i>wordCloud</a></li>
             </ul>
         </div>
     </div>
@@ -208,6 +241,21 @@
             <div class="am-g">
                 <div class="card-box embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" id="statistics" src="${path}/pages/view.action"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="content link-echarts" style="margin-bottom: 90px;">
+            <div class="am-g">
+                <div class="card-box embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" id="link-echarts" src="${path}/pages/link.action"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="content word-cloud" style="margin-bottom: 90px;">
+            <div class="am-g">
+                <div class="card-box embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" id="word-cloud" src="${path}/pages/wordCloud.action"></iframe>
                 </div>
             </div>
         </div>

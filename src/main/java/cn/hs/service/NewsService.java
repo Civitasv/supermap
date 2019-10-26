@@ -4,6 +4,16 @@ import cn.hs.pojo.News;
 
 public interface NewsService {
 
+    String getAllForPoint();
+
+    String getAllForLine();
+
+    String getNewsForEcharts();
+
+    String getProvinceMap();
+
+    String getHotNews();
+
     String getNews();
 
     String getColdNews();

@@ -52,6 +52,70 @@ public class DataController {
         return null;
     }
 
+    @RequestMapping("loadAllForPoint")
+    public ModelAndView loadAllForPoint(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        String CLASS = request.getParameter("type");
+        System.out.println(CLASS);
+        String geojson = newsService.getAllForPoint();
+        PrintWriter out = response.getWriter();
+        System.out.println("123");
+        System.out.println("super");
+        System.out.println(geojson);
+        System.out.println("***************");
+        out.println(geojson);
+        out.close();
+        return null;
+    }
+    @RequestMapping("loadAllForLine")
+    public ModelAndView loadAllForLine(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        String CLASS = request.getParameter("type");
+        System.out.println(CLASS);
+        String geojson = newsService.getAllForLine();
+        PrintWriter out = response.getWriter();
+        System.out.println("123");
+        System.out.println("super");
+        System.out.println(geojson);
+        System.out.println("***************");
+        out.println(geojson);
+        out.close();
+        return null;
+    }
+    @RequestMapping("loadHotNews")
+    public ModelAndView loadHotNews(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        String CLASS = request.getParameter("type");
+        System.out.println(CLASS);
+        String geojson = newsService.getHotNews();
+        PrintWriter out = response.getWriter();
+        System.out.println("123");
+        System.out.println("super");
+        System.out.println(geojson);
+        System.out.println("***************");
+        out.println(geojson);
+        out.close();
+        return null;
+    }
+    @RequestMapping("loadAllForEcharts")
+    public ModelAndView loadAllForEcharts(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        String CLASS = request.getParameter("type");
+        System.out.println(CLASS);
+        String geojson = newsService.getProvinceMap();
+        PrintWriter out = response.getWriter();
+        System.out.println("123");
+        System.out.println("super");
+        System.out.println(geojson);
+        System.out.println("***************");
+        out.println(geojson);
+        out.close();
+        return null;
+    }
     @RequestMapping("addData")
     public ModelAndView addData(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -68,13 +132,13 @@ public class DataController {
         double confidence = items.getDouble("confidence");
         double positive = items.getDouble("positive_prob");
         double negative = items.getDouble("negative_prob");
-        if(negative-positive<=0.1&&negative-positive>=-0.1)
+        if (negative - positive <= 0.1 && negative - positive >= -0.1)
             type = 0;
-        else if(negative-positive>=0.3)
+        else if (negative - positive >= 0.3)
             type = -1;
         else
             type = 1;
-        News news = new News(news_id,comment,location,Integer.parseInt(time),confidence,positive,negative,type,lat,lng);
+        News news = new News(news_id, comment, location, Integer.parseInt(time), confidence, positive, negative, type, lat, lng);
         newsService.addData(news);
         PrintWriter out = response.getWriter();
         out.println(news_id);
