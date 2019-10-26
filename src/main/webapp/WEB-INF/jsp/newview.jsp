@@ -119,7 +119,7 @@
     border-top-width: 0px;
     margin-bottom: 0px;">
     <div class="am-topbar-left am-hide-sm-only">
-        <a href="${path}" class="logo"><span>AINewsSuperMap</span><i class="zmdi zmdi-layers"></i></a>
+        <a href="${path}/pages/newview.action" class="logo"><span>AINewsSuperMap</span><i class="zmdi zmdi-layers"></i></a>
     </div>
 
     <div class="contain">
@@ -146,9 +146,11 @@
         <div class="am-offcanvas-bar admin-offcanvas-bar">
             <!-- User -->
             <div class="user-box am-hide-sm-only">
-                <div class="user-img">
-                    <img src="${path}/images/tesla.png" alt="user-img" title="2019SuperMap"
+                <div class="user-img" >
+                    <a href="${path}">
+                    <img src="${path}/images/tesla.png"  title="2019SuperMap"
                          class="img-circle img-thumbnail img-responsive">
+                    </a>
                     <div class="user-status offline"><i class="am-icon-dot-circle-o" aria-hidden="true"></i></div>
                 </div>
                 <h5><a href="#">2019SuperMap</a></h5>
