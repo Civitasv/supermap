@@ -1675,7 +1675,7 @@ section .half-overlay.is-visible{
 	top:100%;
 }
 .about-section .bg-container-static{
-	background:url(../images/sample2.jpg) no-repeat;
+	background:url(../images/visual_bg.jpg) no-repeat;
 	background-size:cover;
 	background-position:50% 50%;
 }
@@ -1799,7 +1799,7 @@ section .half-overlay.is-visible{
 }
 
 .works-section .bg-container-static{
-	background:url(../images/sample3.jpg) no-repeat;
+	background:url(../images/mng_bg.jpg) no-repeat;
 	background-size:cover;
 	background-position:50% 50%;
 }
@@ -1983,7 +1983,7 @@ section .half-overlay.is-visible{
 	left:100%;
 }
 .contact-section .bg-container-static{
-	background:url(../images/sample4.jpg) no-repeat;
+	background:url(../images/nlp_bg.jpg) no-repeat;
 	background-size:cover;
 	background-position:50% 50%;
 }

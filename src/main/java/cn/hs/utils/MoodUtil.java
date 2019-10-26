@@ -5,6 +5,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -14,6 +15,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 
+import javax.servlet.jsp.JspException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,12 +93,32 @@ public class MoodUtil {
                 txt_detail = jsonObject.getString("detail");
             }
             geo_client.close();
+
+            String query = txt_prov+txt_city+txt_town+txt_county+txt_detail;
+            CloseableHttpClient geo_coder = HttpClients.createDefault();
+            String coder_url = "http://api.map.baidu.com/geocoding/v3/?"+"address="+query+"&output=json&ak=r7hfQnBXT2gxsVFGlZ14PZiNwk7gTs4G&callback=showLocation";
+            HttpGet get = new HttpGet(coder_url);
+            CloseableHttpResponse coder_res = geo_coder.execute(get);
+            if(coder_res.getStatusLine().getStatusCode() == HttpStatus.OK.value()){
+                HttpEntity coder_entity = coder_res.getEntity();
+                String coder_json = EntityUtils.toString(coder_entity, StandardCharsets.UTF_8);
+                coder_json= coder_json.substring(27,coder_json.length()-1);
+                System.out.println(coder_json);
+                JSONObject loc_res = new JSONObject(coder_json);
+                JSONObject loc_result = loc_res.getJSONObject("result");
+                JSONObject location = loc_result .getJSONObject("location");
+                out_put.put("lat",location.get("lat"));
+                out_put.put("lon",location.get("lng"));
+            }
+            geo_coder.close();
         }catch (Exception e){
             txt_prov="unknown";
             txt_city="unknown";
             txt_town = "unknown";
             txt_county = "unknown";
             txt_detail = "unknown";
+            out_put.put("lon",114.3);
+            out_put.put("lat",30.6);
             System.out.println(e.toString());
         }
         out_put.put("province",txt_prov);

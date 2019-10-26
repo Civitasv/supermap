@@ -60,7 +60,7 @@ TABLE OF CONTENTS
     * 5. Self hosted video background
     */
     $.launch_date = [7, 9, 2016]; 										//-- launch date [d,m,yyyy], for example 7 September 2016 : [7,9,2016]
-    $.bg_urls = ["images/sample5.jpg", "images/sample6.jpg"];
+    $.bg_urls = ["images/sample1.png", "images/sample2.png", "images/sample3.png", "images/sample4.png", "images/sample5.png"];
     $.youtube_url = ""; 												//-- just the last words after https://www.youtube.com/watch?v=
     $.self_host_video_path = ""; 									//-- self hosted video path
     $.self_host_video_filename = ""; 								//-- self hosted video filename "WITHOUT .MP4 EXTENSION"
@@ -341,8 +341,11 @@ TABLE OF CONTENTS
         //-- 6.14 activate slideshow background using backstretch
         if ($.bg_type == 1) {
             $(".bg-container").backstretch($.bg_urls, {
-                duration: 6000,
-                fade: 'normal'
+                duration: 4000,
+                fade: 'normal',
+                alignX:'left',
+                alignY:'bottom',
+                scale:'cover'
             });
         }
 

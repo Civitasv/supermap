@@ -2,8 +2,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -282,38 +282,69 @@
                                     async: true,
                                     url: url_dest + "?" + form_data,
                                     success: function (output) {
-										console.log(output);
+                                        console.log(output);
                                         $("#adr_lb").attr("style", "display:none;");
                                         $("#stm_lb").attr("style", "display:none;");
                                         $("#smy_lb").attr("style", "display:none;");
+
                                         //-- show result
-                                        $("#sentiment").val("confidence: " + output['confidence'] + "\r" +
-                                            "negative_prob: " + output['negative_prob'] + "\r" +
-                                            "positive_prob: " + output['positive_prob'] + "\r" +
-                                            "sentiment: " + output['sentiment']);
+                                        var stmt_type = 'unknown';
+                                        switch (output['sentiment']) {
+                                            case 0:
+                                                stmt_type = '消极';
+                                                break;
+                                            case 1:
+                                                stmt_type = '中性';
+                                                break;
+                                            case 2:
+                                                stmt_type = '积极';
+                                                break;
+                                        }
+
+                                        $("#sentiment").val("情绪类别: " + stmt_type + "\r" +
+                                            "；置信度: " + output['confidence'] + "\r" +
+                                            "；消极概率: " + output['negative_prob'] + "\r" +
+                                            "；积极概率: " + output['positive_prob'] + "\r");
+
                                         $("#summary").val(output['summary'] + "\r");
                                         var addr = "";
-                                        if(output['province'] != "unknown"){
-                                        	addr+=output['province'];
-										}
-										if(output['city'] != "unknown"){
-											addr+=output['city'];
-										}
-										if(output['town'] != "unknown"){
-											addr+=output['town']
-										}
-										if(output['county'] != "unknown"){
-											addr+=output['county']
-										}
-										if(output['detail'] != "unknown"){
-											addr+=output['detail']
-										}
-										$("#address").val("地址信息提取结果:" + addr);
+                                        if (output['province'] != "unknown") {
+                                            addr += output['province'];
+                                        }
+                                        if (output['city'] != "unknown") {
+                                            addr += output['city'];
+                                        }
+                                        if (output['town'] != "unknown") {
+                                            addr += output['town']
+                                        }
+                                        if (output['county'] != "unknown") {
+                                            addr += output['county']
+                                        }
+                                        if (output['detail'] != "unknown") {
+                                            addr += output['detail']
+                                        }
+                                        $("#address").val("地址信息提取结果:" + addr);
 
+                                        vectorSource.clear();
+                                        var feature = new ol.Feature();
+                                        var features = [];
+                                        feature.setGeometry(new ol.geom.Point([output['lon'],output['lat']]));
+                                        feature.setStyle(new ol.style.Style({
+                                            image: new ol.style.Icon(({
+                                                opacity: 1,
+                                                src: imgurl,
+                                                scale: 0.4
+                                            }))
+                                        }));
+                                        features.push(feature);
+                                        vectorSource.addFeatures(features);
+                                        view.animate({zoom: 11}, {center: [output['lon'],output['lat']]});
+                                        /*
                                         var geoCodeParam = new SuperMap.GeoCodingParameter({
                                             address: addr,
                                             fromIndex: 0,
                                             toIndex: 10,
+                                            filters: output['city'],
                                             prjCoordSys: "{epsgCode:4326}" ,// 3857? 4326?
                                             maxReturn: 1
                                         });
@@ -322,7 +353,6 @@
                                         function match(obj) {
                                         	console.log(obj.result);
 											var center_point = new ol.geom.Point([obj.result[0].location.x, obj.result[0].location.y]);
-											console.log((obj.result[0].location.x)/100000, (obj.result[0].location.y)/100000);
                                             vectorSource.clear();
                                             var features = [];
                                             obj.result.map(function (item) {
@@ -346,8 +376,7 @@
                                             vectorSource.addFeatures(features);
                                             view.animate({zoom: 11}, {center: [obj.result[0].location.x, obj.result[0].location.y]});
                                         }
-
-
+                                        */
                                         //-- hide loading
                                         var wait_loading = setTimeout(function () {
                                             $(form).find('.form-notif').removeClass('is-visible');
