@@ -10,10 +10,8 @@
     <script type="text/javascript" src="${path}/jquery/jquery.min.js"></script>
 </head>
 <body data-spy="scroll" data-target=".navbar-collapse" style="width: 100%;height: 100%;">
-<div id="content" style=" width:100%;height:100%;">
+<div id="main" style=" width:100%;height:100%;">
     <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-    <div id="main" style="width:100%;height: 100%">
-    </div>
 </div>
 <!-- 进行ajax发送并接收数据,最后根据接收的数据完成可视化工作 -->
 
@@ -130,8 +128,9 @@
                 jsondata = {"title": "x", "categories": categoryArray, "nodes": nodes, "links": links};
             console.log(jsondata)
             //数据格式为Json格式
-
             createGraph(myChart, jsondata);
+            $('#notif', window.parent.document).hide();
+            myChart.resize();
         },
         error: function () {
             console.log("加载失败")

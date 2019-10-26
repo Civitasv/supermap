@@ -57,12 +57,12 @@
             cursor: pointer;
         }
 
-        #TotalMap, #AveMap, #LinkMap, #Stats,#linkEcharts,#wordCloud {
+        #TotalMap, #AveMap, #LinkMap, #Stats,#linkEcharts,#wordCloud,#Overview {
             padding-left: 0;
             font-size:18px;
         }
 
-        #statistics ,#link-echarts,#word-cloud{
+        #statistics ,#link-echarts,#word-cloud,#overview_panel{
             width: 100%;
             height: 100%;
         }
@@ -76,6 +76,8 @@
     <script>
         $(function () {
             loadTotalMap();
+
+            $(".stats").hide();
             $(".aveMapContainer").hide();
             $(".linkMapContainer").hide();
             $(".totalMapContainer").hide();
@@ -84,6 +86,7 @@
 
             $("#TotalMap").click(function () {
                 $(".totalMapContainer").show();
+                $(".overviewContainer").hide();
                 $(".aveMapContainer").hide();
                 $(".link-echarts").hide();
                 $(".linkMapContainer").hide();
@@ -94,6 +97,7 @@
             })
             $("#AveMap").click(function () {
                 $(".totalMapContainer").hide();
+                $(".overviewContainer").hide();
                 $(".aveMapContainer").show();
                 $(".linkMapContainer").hide();
                 $(".link-echarts").hide();
@@ -105,6 +109,7 @@
             })
             $("#LinkMap").click(function () {
                 $(".totalMapContainer").hide();
+                $(".overviewContainer").hide();
                 $(".aveMapContainer").hide();
                 $(".linkMapContainer").show();
                 $(".link-echarts").hide();
@@ -114,6 +119,7 @@
             })
             $("#Stats").click(function () {
                 $(".totalMapContainer").hide();
+                $(".overviewContainer").hide();
                 $(".aveMapContainer").hide();
                 $(".linkMapContainer").hide();
                 $(".link-echarts").hide();
@@ -123,6 +129,7 @@
             })
             $("#linkEcharts").click(function () {
                 $(".totalMapContainer").hide();
+                $(".overviewContainer").hide();
                 $(".aveMapContainer").hide();
                 $(".linkMapContainer").hide();
                 $(".stats").hide();
@@ -130,8 +137,19 @@
                 $(".link-echarts").show();
                 $(".page-title").html("echarts连接图");
             })
+            $("#Overview").click(function () {
+                $(".totalMapContainer").hide();
+                $(".overviewContainer").show();
+                $(".aveMapContainer").hide();
+                $(".linkMapContainer").hide();
+                $(".stats").hide();
+                $(".word-cloud").hide();
+                $(".link-echarts").hide();
+                $(".page-title").html("Overview");
+            })
             $("#wordCloud").click(function () {
                 $(".totalMapContainer").hide();
+                $(".overviewContainer").hide();
                 $(".aveMapContainer").hide();
                 $(".linkMapContainer").hide();
                 $(".stats").hide();
@@ -156,7 +174,7 @@
     <div class="contain">
         <ul class="am-nav am-navbar-nav am-navbar-left">
 
-            <li><h4 class="page-title">统计结果</h4></li>
+            <li><h4 class="page-title">热榜</h4></li>
         </ul>
 
         <ul class="am-nav am-navbar-nav am-navbar-right">
@@ -201,12 +219,14 @@
             <!-- End User -->
 
             <ul class="am-list admin-sidebar-list">
-                <li><a id="Stats" class="hbtn hb-border-left"><i class="fa fa-pie-chart"></i> Stats</a></li>
-                <li><a id="TotalMap" class="hbtn hb-border-top"><i class="fa fa-map-o"></i> TotalMap</a></li>
-                <li> <a id="AveMap" class="hbtn hb-border-right"><i class="fa fa-map"></i> AveMap</a></li>
+
+                <li><a id="Overview" class="hbtn hb-border-bottom"><i class="fa fa-pie-chart"></i> Overview</a></li>
+                <li><a id="Stats" class="hbtn hb-border-bottom"><i class="fa fa-pie-chart"></i> Stats</a></li>
+                <li><a id="TotalMap" class="hbtn hb-border-bottom"><i class="fa fa-map-o"></i> TotalMap</a></li>
+                <li> <a id="AveMap" class="hbtn hb-border-bottom"><i class="fa fa-map"></i> AveMap</a></li>
                 <li> <a id="LinkMap" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i> LinkMap</a></li>
-                <li> <a id="linkEcharts" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i>linkEcharts</a></li>
-                <li> <a id="wordCloud" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i>wordCloud</a></li>
+                <li> <a id="linkEcharts" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i>LinkEcharts</a></li>
+                <li> <a id="wordCloud" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i>WordCloud</a></li>
             </ul>
         </div>
     </div>
@@ -216,6 +236,15 @@
 </div>
 </div>-->
     <div class="content-page">
+
+        <div class="content overviewContainer" style="margin-bottom: 90px;">
+            <div class="am-g">
+                <div class="card-box embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" id="overview_panel" src="${path}/pages/overview.action"></iframe>
+                </div>
+            </div>
+        </div>
+
         <div class="content totalMapContainer">
             <div class="am-g">
                 <!-- Row start -->
@@ -248,10 +277,12 @@
         <div class="content link-echarts" style="margin-bottom: 90px;">
             <div class="am-g">
                 <div class="card-box embed-responsive embed-responsive-16by9">
+                    <h3 id="notif" style="text-align:center;">数据加载ing</h3>
                     <iframe class="embed-responsive-item" id="link-echarts" src="${path}/pages/link.action"></iframe>
                 </div>
             </div>
         </div>
+
         <div class="content word-cloud" style="margin-bottom: 90px;">
             <div class="am-g">
                 <div class="card-box embed-responsive embed-responsive-16by9">

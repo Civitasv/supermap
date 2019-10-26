@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.jsp.JspException;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,11 @@ public class MoodUtil {
 
         client.setConnectionTimeoutInMillis(2000);
         client.setSocketTimeoutInMillis(60000);
-
+        try {
+            text = new String(text.getBytes("gbk"), "gbk");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         JSONObject res_stm = client.sentimentClassify(text, null);
         JSONObject res_smy = client.newsSummary(text, 300, null);
         JSONObject stm = res_stm.getJSONArray("items").getJSONObject(0);

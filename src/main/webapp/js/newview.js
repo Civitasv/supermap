@@ -38,23 +38,23 @@ function loadTotalMap(){
 
         var layerCtrl = new BasicControl.LayerSwitcher({
             theme: 'light',
-            //×Ô¶¨Òå»ù´¡Í¼²ã
+            //è‡ªå®šä¹‰åŸºç¡€å›¾å±‚
             baseLayers: [{
                 enable: true,
                 id: 'tile',
-                name: '»ù´¡Í¼',
+                name: 'åŸºç¡€å›¾',
                 layer: new AMap.TileLayer()
             }, {
                 id: 'satellite',
-                name: 'ÎÀĞÇÍ¼',
+                name: 'å«æ˜Ÿå›¾',
                 layer: new AMap.TileLayer.Satellite()
             }
             ],
-            //×Ô¶¨Òå¸²¸ÇÍ¼²ã
+            //è‡ªå®šä¹‰è¦†ç›–å›¾å±‚
             overlayLayers: [{
                 enable: true,
                 id: 'total_count',
-                name: '×ÜÊı',
+                name: 'æ€»æ•°',
                 layer: layer
             }]
         });
@@ -92,18 +92,18 @@ function loadAveMap(){
                 '#d7191c'
             ];
             layer.setOptions({
-                // µ¥Î»Ã×
+                // å•ä½ç±³
                 unit: 'meter',
                 style: {
-                    // Õı¶à±ßĞÎ°ë¾¶
+                    // æ­£å¤šè¾¹å½¢åŠå¾„
                     radius: 8000,
-                    // ¸ß¶ÈÎª 0 ¼´¿ÉÌùµØÃæ
+                    // é«˜åº¦ä¸º 0 å³å¯è´´åœ°é¢
                     height: {
                         key: 'absmean',
                         scale: 'linear',
                         value: [0, 80000]
                     },
-                    // ¶¥ÃæÑÕÉ«
+                    // é¡¶é¢é¢œè‰²
                     color: {
                         key: 'mean',
                         scale: 'quantile',
@@ -136,12 +136,66 @@ function loadLinkMap(){
 
     link_layer.setOptions({
         style: {
-            // ÇúÂÊ [-1, 1] Çø¼ä
+            // æ›²ç‡ [-1, 1] åŒºé—´
             curveness: 1,
             opacity: 0.8,
             color: '#5695F6'
         }
     });
 
+    var link_layer2 = new Loca.LinkLayer({
+        map: link_map
+    });
+
+    link_layer2.setData(city_line2, {
+        lnglat: 'line'
+    });
+
+    link_layer2.setOptions({
+        style: {
+            // æ›²ç‡ [-1, 1] åŒºé—´
+            curveness: 1,
+            opacity: 0.8,
+            color: '#569506'
+        }
+    });
+
+    var link_layer3 = new Loca.LinkLayer({
+        map: link_map
+    });
+
+    link_layer3.setData(city_line3, {
+        lnglat: 'line'
+    });
+
+    link_layer3.setOptions({
+        style: {
+            // æ›²ç‡ [-1, 1] åŒºé—´
+            curveness: 1,
+            opacity: 0.8,
+            color: '#f7be7f'
+        }
+    });
+
+    var link_layer4 = new Loca.LinkLayer({
+        map: link_map
+    });
+
+    link_layer4.setData(city_line4, {
+        lnglat: 'line'
+    });
+
+    link_layer4.setOptions({
+        style: {
+            // æ›²ç‡ [-1, 1] åŒºé—´
+            curveness: 1,
+            opacity: 0.8,
+            color: '#f85f73'
+        }
+    });
+
     link_layer.render();
+    link_layer2.render();
+    link_layer3.render();
+    link_layer4.render();
 }

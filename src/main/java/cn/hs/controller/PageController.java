@@ -36,6 +36,10 @@ public class PageController {
     @RequestMapping("newhome")
     public ModelAndView newhome(){ return new ModelAndView("newhome");}
 
+    @RequestMapping("overview")
+    public ModelAndView overview(){ return new ModelAndView("overview");}
+
+
     @RequestMapping("login")
     public ModelAndView login(){
         return new ModelAndView("login");
