@@ -22,7 +22,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	rel="stylesheet" type="text/css">
 <link href="${path}/css/sb-admin.css" rel="stylesheet">
 
 </head>
@@ -47,7 +46,7 @@
 		<br>
 
 		<div>
-			<img src="${path}/images/superstation.png" width="500" height="auto" alt=""
+			<img src="${path}/images/super_intro.jpg" width="500" height="auto" alt=""
 				align="left" />
 			<h2 align="center">介绍文本</h2>
 			<p style="text-indent:2em;overflow:hidden;max-width:650px">

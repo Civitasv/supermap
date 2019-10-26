@@ -220,7 +220,7 @@
                     <script type="text/javascript">
                         var url = (window.isLocal ? window.server : "http://support.supermap.com.cn:8090") + "/iserver/services/map-china400/rest/maps/China_4326";
                         var addressUrl = (window.isLocal ? window.server : "http://support.supermap.com.cn:8090") + "/iserver/services/addressmatch-Address/restjsr/v1/address";
-                        var imgurl = path + '/images/super.png';
+                        var imgurl = path + '/images/blue_marker.png';
                         var vectorSource = new ol.source.Vector();
                         var addressMatchService = new ol.supermap.AddressMatchService(addressUrl);
                         var view = new ol.View({
@@ -338,7 +338,7 @@
                                         }));
                                         features.push(feature);
                                         vectorSource.addFeatures(features);
-                                        view.animate({zoom: 11}, {center: [output['lon'],output['lat']]});
+                                        view.animate({zoom: 12}, {center: [output['lon'],output['lat']]});
                                         /*
                                         var geoCodeParam = new SuperMap.GeoCodingParameter({
                                             address: addr,

@@ -544,7 +544,7 @@
     var superStyle = new ol.style.Style({
         image: new ol.style.Icon({
             opacity: 1,
-            src: '${path}/images/super.png',
+            src: '${path}/images/blue_marker.png',
             scale: 0.4
         })
     });
@@ -705,7 +705,7 @@
                     });
                     var imgurl = null;
                     if (station_class == 'super') {
-                        imgurl = '${path}/images/super.png';
+                        imgurl = '${path}/images/blue_marker.png';
                     } else if (station_class == 'destination') {
                         imgurl = '${path}/images/destination.png';
                     }

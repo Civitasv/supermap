@@ -45,7 +45,7 @@
 		</div>
 		<br>
 		<div>
-			<img src="${path}/images/destinationstation.png" width="auto" height="300"
+			<img src="${path}/images/dest_intro.jpg" width="auto" height="300"
 				alt="" align="left" />
 			<h2 align="center">News Intro</h2>
 			<p style="text-indent:2em;overflow:hidden;max-width:600px">Every animal has its own language, and the machine is also!
