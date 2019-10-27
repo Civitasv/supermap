@@ -220,13 +220,13 @@
 
             <ul class="am-list admin-sidebar-list">
 
-                <li><a id="Overview" class="hbtn hb-border-bottom"><i class="fa fa-pie-chart"></i> Overview</a></li>
+                <li><a id="Overview" class="hbtn hb-border-bottom"><i class="fa fa-stack-overflow"></i> Overview</a></li>
                 <li><a id="Stats" class="hbtn hb-border-bottom"><i class="fa fa-pie-chart"></i> Stats</a></li>
                 <li><a id="TotalMap" class="hbtn hb-border-bottom"><i class="fa fa-map-o"></i> TotalMap</a></li>
                 <li> <a id="AveMap" class="hbtn hb-border-bottom"><i class="fa fa-map"></i> AveMap</a></li>
                 <li> <a id="LinkMap" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i> LinkMap</a></li>
-                <li> <a id="linkEcharts" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i>LinkEcharts</a></li>
-                <li> <a id="wordCloud" class="hbtn hb-border-bottom"><i class="fa fa-cogs"></i>WordCloud</a></li>
+                <li> <a id="linkEcharts" class="hbtn hb-border-bottom"><i class="fa fa-anchor"></i>LinkEcharts</a></li>
+                <li> <a id="wordCloud" class="hbtn hb-border-bottom"><i class="fa fa-cloud"></i>WordCloud</a></li>
             </ul>
         </div>
     </div>

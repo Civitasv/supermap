@@ -39,7 +39,7 @@
         LIMIT 50 offset 0
     </select>
     <select id="getNews" resultMap="NewsResultMap">
-        select * from public.comment
+        select * from public.comment limit 2000
     </select>
     <select id="getNewsUrl" resultType="String">
         select news_url from public.source where news_id=#{news_id}
@@ -53,11 +53,11 @@
     </select>
 
     <select id="getColdNews" resultMap="NewsResultMap">
-        select * from public.comment where type=-1
+        select * from public.comment where type=-1 limit 1000
     </select>
 
     <select id="getWarmNews" resultMap="NewsResultMap">
-        select * from public.comment where type=1
+        select * from public.comment where type=1 limit 1000
     </select>
 
     <insert id="addData" parameterType="map">
