@@ -41,17 +41,21 @@ public class MoodUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        JSONObject res_stm = client.sentimentClassify(text, null);
-        JSONObject res_smy = client.newsSummary(text, 300, null);
-        JSONObject stm = res_stm.getJSONArray("items").getJSONObject(0);
         JSONObject out_put = new JSONObject();
+        try {
+            JSONObject res_stm = client.sentimentClassify(text, null);
+            JSONObject res_smy = client.newsSummary(text, 300, null);
+            JSONObject stm = res_stm.getJSONArray("items").getJSONObject(0);
 
-        out_put.put("sentiment", stm.get("sentiment"));
-        out_put.put("confidence", stm.get("confidence"));
-        out_put.put("positive_prob", stm.get("positive_prob"));
-        out_put.put("negative_prob", stm.get("negative_prob"));
-        out_put.put("summary", res_smy.get("summary"));
-        System.out.println(out_put);
+            out_put.put("sentiment", stm.get("sentiment"));
+            out_put.put("confidence", stm.get("confidence"));
+            out_put.put("positive_prob", stm.get("positive_prob"));
+            out_put.put("negative_prob", stm.get("negative_prob"));
+            out_put.put("summary", res_smy.get("summary"));
+            System.out.println(out_put);
+        }catch (Exception e){
+
+        }
         String token = "";
         String txt_prov="unknown";
         String txt_city="unknown";
