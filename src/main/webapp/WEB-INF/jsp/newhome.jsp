@@ -224,10 +224,10 @@
                         var vectorSource = new ol.source.Vector();
                         var addressMatchService = new ol.supermap.AddressMatchService(addressUrl);
                         var view = new ol.View({
-                            center: [114.3, 30.6],
+                            center: [108.3, 30.6],
                             projection: 'EPSG:4326',
                             maxZoom: 19,
-                            zoom: 12
+                            zoom: 5
                         });
                         new ol.supermap.MapService(url).getMapInfo(function (serviceResult) {
                             var mapJSONObj = serviceResult.result;
@@ -301,10 +301,10 @@
                                                 break;
                                         }
 
-                                        $("#sentiment").val("情绪类别: " + stmt_type + "\r" +
-                                            "；置信度: " + output['confidence'] + "\r" +
-                                            "；消极概率: " + output['negative_prob'] + "\r" +
-                                            "；积极概率: " + output['positive_prob'] + "\r");
+                                        $("#sentiment").val("情绪类别:  " + stmt_type + "\r" +
+                                            "； 置信度: " + output['confidence'] + "\r" +
+                                            "； 消极概率: " + output['negative_prob'] + "\r" +
+                                            "； 积极概率: " + output['positive_prob'] + "\r");
 
                                         $("#summary").val(output['summary'] + "\r");
                                         var addr = "";
@@ -323,7 +323,7 @@
                                         if (output['detail'] != "unknown") {
                                             addr += output['detail']
                                         }
-                                        $("#address").val("地址信息提取结果:" + addr);
+                                        $("#address").val("地址信息提取结果:  " + addr);
 
                                         vectorSource.clear();
                                         var feature = new ol.Feature();
@@ -333,12 +333,12 @@
                                             image: new ol.style.Icon(({
                                                 opacity: 1,
                                                 src: imgurl,
-                                                scale: 0.4
+                                                scale: 0.8
                                             }))
                                         }));
                                         features.push(feature);
                                         vectorSource.addFeatures(features);
-                                        view.animate({zoom: 12}, {center: [output['lon'],output['lat']]});
+                                        view.animate({zoom: 7}, {center: [output['lon'],output['lat']]});
                                         /*
                                         var geoCodeParam = new SuperMap.GeoCodingParameter({
                                             address: addr,

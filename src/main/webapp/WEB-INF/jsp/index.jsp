@@ -582,10 +582,10 @@
             target: document.getElementById('map'),
             overlays: [overlay],
             view: new ol.View({
-                center: [114.3, 30.6],
+                center: [108.3, 30.6],
                 projection: 'EPSG:4326',
                 maxZoom: 19,
-                zoom: 12
+                zoom: 5
             })
         });
         console.log("--------------矢量图层信息--------------");
