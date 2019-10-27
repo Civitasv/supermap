@@ -68,6 +68,7 @@ public class DataController {
         out.close();
         return null;
     }
+
     @RequestMapping("loadAllForLine")
     public ModelAndView loadAllForLine(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -84,6 +85,7 @@ public class DataController {
         out.close();
         return null;
     }
+
     @RequestMapping("loadHotNews")
     public ModelAndView loadHotNews(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -100,6 +102,7 @@ public class DataController {
         out.close();
         return null;
     }
+
     @RequestMapping("loadAllForEcharts")
     public ModelAndView loadAllForEcharts(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -116,6 +119,7 @@ public class DataController {
         out.close();
         return null;
     }
+
     @RequestMapping("addData")
     public ModelAndView addData(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -128,10 +132,18 @@ public class DataController {
         Double lat = Double.parseDouble(request.getParameter("lat"));
         int type = Integer.parseInt(request.getParameter("type"));
         JSONObject jsonObject = MoodUtil.getMood(comment);
-        JSONObject items = jsonObject.getJSONArray("items").getJSONObject(0);
-        double confidence = items.getDouble("confidence");
-        double positive = items.getDouble("positive_prob");
-        double negative = items.getDouble("negative_prob");
+        double confidence = 0;
+        double positive = 0;
+        double negative = 0;
+        try {
+            confidence = jsonObject.getDouble("confidence");
+            positive = jsonObject.getDouble("positive_prob");
+            negative = jsonObject.getDouble("negative_prob");
+        } catch (Exception e) {
+            confidence = 0;
+            positive = 0;
+            negative = 0;
+        }
         if (negative - positive <= 0.1 && negative - positive >= -0.1)
             type = 0;
         else if (negative - positive >= 0.3)

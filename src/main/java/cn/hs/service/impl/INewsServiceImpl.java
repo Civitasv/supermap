@@ -133,6 +133,12 @@ public class INewsServiceImpl implements NewsService {
     }
 
     @Override
+    public String getTitle(String news_id) {
+        String title = sqlSessionFactory.openSession().selectOne("cn.hs.mapper.NewsMapper.getTitle",news_id);
+        return title;
+    }
+
+    @Override
     public String getNews() {
         List<News> newsList = sqlSessionFactory.openSession().selectList("cn.hs.mapper.NewsMapper.getNews");
         JSONObject jsonObject = new JSONObject();

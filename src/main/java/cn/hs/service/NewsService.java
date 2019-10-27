@@ -14,6 +14,8 @@ public interface NewsService {
 
     String getHotNews();
 
+    String getTitle(String news_id);
+
     String getNews();
 
     String getColdNews();
