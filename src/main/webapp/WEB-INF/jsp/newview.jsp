@@ -145,7 +145,7 @@
                 $(".stats").hide();
                 $(".word-cloud").hide();
                 $(".link-echarts").hide();
-                $(".page-title").html("Overview");
+                $(".page-title").html("热榜");
             })
             $("#wordCloud").click(function () {
                 $(".totalMapContainer").hide();
