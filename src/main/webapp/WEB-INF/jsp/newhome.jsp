@@ -323,8 +323,12 @@
                                         if (output['detail'] != "unknown") {
                                             addr += output['detail']
                                         }
-                                        $("#address").val("地址信息提取结果:  " + addr);
 
+                                        console.log(addr);
+                                        if(addr==""){
+                                            addr="湖北省武汉市"
+                                        }
+                                        $("#address").val("地址信息提取结果:  " + addr);
                                         vectorSource.clear();
                                         var feature = new ol.Feature();
                                         var features = [];

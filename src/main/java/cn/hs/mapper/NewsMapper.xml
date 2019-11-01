@@ -41,7 +41,7 @@
     <select id="getNews" resultMap="NewsResultMap">
         SELECT * FROM public.comment
         ORDER BY comment_id DESC
-        LIMIT 2000 offset 0
+        LIMIT 5000 offset 0
     </select>
     <select id="getNewsUrl" resultType="String">
         select news_url from public.source where news_id=#{news_id}
@@ -61,13 +61,13 @@
     <select id="getColdNews" resultMap="NewsResultMap">
         SELECT * FROM public.comment  where type=-1
         ORDER BY comment_id DESC
-        LIMIT 1000 offset 0
+        LIMIT 5000 offset 0
     </select>
 
     <select id="getWarmNews" resultMap="NewsResultMap">
         SELECT * FROM public.comment  where type=1
         ORDER BY comment_id DESC
-        LIMIT 1000 offset 0
+        LIMIT 5000 offset 0
     </select>
 
     <insert id="addData" parameterType="map">

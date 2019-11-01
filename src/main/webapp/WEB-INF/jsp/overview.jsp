@@ -75,6 +75,10 @@
                             i++;
                             limit++;
                         }
+                        if (data["newslist"][i]["imgsrc"] == "") {
+                            i++;
+                            limit++;
+                        }
                         var str = "<div class=\"col-lg-4 mb-4 mb-lg-0 p-2 \">"
                             + "<div class=\"card rounded credit-card bg-hover-gradient-violet\">"
                             + "<a href=\""
