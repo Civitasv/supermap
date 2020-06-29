@@ -11,7 +11,18 @@ public class PageController {
     public ModelAndView index(){
         return new ModelAndView("index");
     }
-
+    @RequestMapping("point")
+    public ModelAndView point(){
+        return new ModelAndView("point");
+    }
+    @RequestMapping("link")
+    public ModelAndView link(){
+        return new ModelAndView("link");
+    }
+    @RequestMapping("wordCloud")
+    public ModelAndView wordCloud(){
+        return new ModelAndView("word_cloud");
+    }
     @RequestMapping("view")
     public ModelAndView view(){
         return new ModelAndView("view");
@@ -22,10 +33,21 @@ public class PageController {
         return new ModelAndView("home");
     }
 
+    @RequestMapping("newhome")
+    public ModelAndView newhome(){ return new ModelAndView("newhome");}
+
+    @RequestMapping("overview")
+    public ModelAndView overview(){ return new ModelAndView("overview");}
+
 
     @RequestMapping("login")
     public ModelAndView login(){
         return new ModelAndView("login");
+    }
+
+    @RequestMapping("newview")
+    public ModelAndView newview(){
+        return new ModelAndView("newview");
     }
 
     @RequestMapping("register")
@@ -74,4 +96,5 @@ public class PageController {
     public ModelAndView destinationIntro(){
         return new ModelAndView("destinationIntro");
     }
+
 }

@@ -39,7 +39,7 @@
 
     <!--使用注解驱动来使用新的映射器和处理器-->
     <mvc:annotation-driven/>
-    <mvc:view-controller path="/" view-name="pages/home.action"/>
+    <mvc:view-controller path="/" view-name="pages/newhome.action"/>
     <!--自定义视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 

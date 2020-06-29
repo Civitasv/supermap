@@ -5,7 +5,7 @@
          id="WebApp_ID" version="2.5">
   <display-name>ssh</display-name>
   <welcome-file-list>
-    <welcome-file>pages/home.action</welcome-file>
+    <welcome-file>pages/newhome.action</welcome-file>
   </welcome-file-list>
 
   <!-- 配置spring -->
